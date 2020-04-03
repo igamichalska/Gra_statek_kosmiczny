@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,11 +7,7 @@ import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -62,7 +57,6 @@ public class GUI extends JFrame {
 		    		okno.setVisible(true);
 		    	}
 		    });
-			//add ActionListener ktory bedzie wyrzucal okienko na srodek
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lewy.add(startbutton);
 			
@@ -104,14 +98,6 @@ public class GUI extends JFrame {
 			lewy.add(slider);
 			this.add(lewy, BorderLayout.LINE_START);
 			
-			/*prawy = new JPanel();
-			prawy.setPreferredSize(new Dimension(800,600));
-			prawy.setBackground(Color.white);
-			//prawy.setBorder(BorderFactory.createEmptyBorder(20,20,80,80));
-			//moze jakas grafike wstawimy tu?*/
-			this.add(prawy, BorderLayout.CENTER);
-			
-			//gorny = new JPanel();
 			menubar = new JMenuBar();
 			autor = new JMenu ("Autor");
 			wyswietl = new JMenuItem ("Wyœwietl informacje");
@@ -119,7 +105,6 @@ public class GUI extends JFrame {
 			autor.add(wyswietl);
 			menubar.add(autor);
 			this.setJMenuBar(menubar);
-			//this.add(gorny, BorderLayout.PAGE_START);
 			this.pack();
 			this.setResizable(false);
 	}
