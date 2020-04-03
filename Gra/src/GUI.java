@@ -43,7 +43,13 @@ public class GUI extends JFrame {
 			
 			startbutton = new JButton("START");
 		    startbutton.setMaximumSize(new Dimension(150,100));
-		    
+		    startbutton.addActionListener(new ActionListener() {
+		    	@Override
+		    	public void actionPerformed(ActionEvent arg0) {
+		    		StartWindow okno = new StartWindow();
+		    		okno.setVisible(true);
+		    	}
+		    });
 			//add ActionListener ktory bedzie wyrzucal okienko na srodek
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lewy.add(startbutton);
