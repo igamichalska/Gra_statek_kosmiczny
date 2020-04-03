@@ -1,12 +1,19 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +27,8 @@ import javax.swing.JTextField;
 
 public class GUI extends JFrame implements ActionListener {
 
-	JPanel lewy, prawy, gorny;
+	JPanel lewy, gorny;
+	ImagePanel prawy;
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;
@@ -31,7 +39,7 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public GUI() throws HeadlessException {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-			this.setSize(600,480);
+			this.setSize(895,650);
 				this.setTitle("Kosmiczne Podró¿e");
 		lewy = new JPanel();
 			lewy.setLayout(new BoxLayout(lewy, 3));
@@ -52,11 +60,9 @@ public class GUI extends JFrame implements ActionListener {
 				slider.setMajorTickSpacing(10);
 					lewy.add(slider);
 		this.add(lewy, BorderLayout.LINE_START);
-			prawy = new JPanel();
-				prawy.setBackground(Color.white); //na razie ustawiam bialy, ale trzeba pomyslec
-				//moze jakas grafike wstawimy tu?
-				//tez trzeba ogarnac jak kolor statku bd zmieniac (fajnie by bylo, jakby sie zmienial na tej grafice tez)
-				//albo wstawic grafike i na tej grafice wrzucic jakos zrobiony wielok¹t? XD
+		prawy = new ImagePanel(
+		        new ImageIcon("C:\\Users\\igami\\git\\Gra_statek_kosmiczny\\pic.png").getImage());
+				
 		this.add(prawy, BorderLayout.CENTER);
 			gorny = new JPanel();
 			menubar = new JMenuBar();
@@ -75,6 +81,28 @@ public class GUI extends JFrame implements ActionListener {
 			
 		}
 	};
+	class ImagePanel extends JPanel {
+
+		  private Image img;
+
+		  public ImagePanel(String img) {
+		    this(new ImageIcon(img).getImage());
+		  }
+
+		  public ImagePanel(Image img) {
+		    this.img = img;
+		    Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+		    setPreferredSize(size);
+		    setMinimumSize(size);
+		    setMaximumSize(size);
+		    setSize(size);
+		    setLayout(null);
+		  }
+
+		  public void paintComponent(Graphics g) {
+		    g.drawImage(img, 0, 0, null);
+		  }
+	}
 
 	public GUI(GraphicsConfiguration arg0) {
 		super(arg0);
@@ -91,12 +119,6 @@ public class GUI extends JFrame implements ActionListener {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static void main(String[] args) {
 		GUI frame = new GUI();
 		frame.setLocationRelativeTo(null);
@@ -105,4 +127,11 @@ public class GUI extends JFrame implements ActionListener {
 
 	}
 
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
