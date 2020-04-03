@@ -84,7 +84,7 @@ public class GUI extends JFrame {
 					lewy.add(slider);
 		this.add(lewy, BorderLayout.LINE_START);
 		prawy = new ImagePanel(
-		        new ImageIcon("C:\\Users\\igami\\git\\Gra_statek_kosmiczny\\pic.png").getImage());
+		        new ImageIcon("C:/Users/igami/git/Gra_statek_kosmiczny/pic.png").getImage());
 				
 		this.add(prawy, BorderLayout.CENTER);
 			gorny = new JPanel();
