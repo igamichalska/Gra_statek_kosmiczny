@@ -1,17 +1,17 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 public class GUI extends JFrame {
 
 	JPanel lewy, gorny;
-	ImagePanel prawy;
+	GamePanel prawy;
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;
@@ -36,7 +36,7 @@ public class GUI extends JFrame {
 	JMenuItem wyswietl;
 	
 	public GUI() throws HeadlessException {
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			this.setSize(895,650);
 				this.setTitle("Kosmiczne Podró¿e");
 		lewy = new JPanel();
@@ -83,9 +83,15 @@ public class GUI extends JFrame {
 				slider.setMajorTickSpacing(10);
 					lewy.add(slider);
 		this.add(lewy, BorderLayout.LINE_START);
-		prawy = new ImagePanel(
+		
+		prawy = new GamePanel(getWidth(), getHeight());
+			prawy.addPlanet(200, 300, 50, 50, 10 , 10, Color.blue); //merkury np
+			prawy.addPlanet(500, 300, 200, 200, 0, 0, Color.yellow); //sun
+			prawy.addPlanet(0, 200, 100, 100, 10, 5, Color.red); 
 
-		        new ImageIcon("pic.png").getImage());
+			ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+			exec.execute(prawy);
+			exec.shutdown();
 				
 		this.add(prawy, BorderLayout.CENTER);
 			gorny = new JPanel();
@@ -115,28 +121,6 @@ public class GUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Iga Michalska, Jan £oziñski");
 		}
 	};
-	class ImagePanel extends JPanel {
-
-		  private Image img;
-
-		  public ImagePanel(String img) {
-		    this(new ImageIcon(img).getImage());
-		  }
-
-		  public ImagePanel(Image img) {
-		    this.img = img;
-		    Dimension size = new Dimension(800, 600);
-		    setPreferredSize(size);
-		    setMinimumSize(size);
-		    setMaximumSize(size);
-		    setSize(size);
-		    setLayout(null);
-		  }
-
-		  public void paintComponent(Graphics g) {
-		    g.drawImage(img, 0, 0, null);
-		  }
-	}
 	public GUI(GraphicsConfiguration arg0) {
 		super(arg0);
 		// TODO Auto-generated constructor stub
