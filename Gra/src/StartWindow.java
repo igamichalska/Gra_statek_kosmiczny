@@ -75,6 +75,7 @@ public class StartWindow extends JFrame {
 		glowny.add(start);
 		this.add(glowny);
 		this.pack();
+		  
 	}
 	
 	public static void main(String[] args) {
