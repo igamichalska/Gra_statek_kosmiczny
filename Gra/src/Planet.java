@@ -11,6 +11,7 @@ public class Planet implements Runnable {
 	private int ang = 0;
 	private int angV = 5;
     private int selfR = 20;
+    private int mass;
     private Color color = Color.BLACK;
     private BufferedImage[] img = null;
     private int i = 0;
@@ -22,6 +23,14 @@ public class Planet implements Runnable {
 		this.ang = ang;
 		this.angV = angV;
 		this.color = c;
+	}
+	
+	public int getX() {
+		return (int) (r*Math.cos(ang));
+	}
+	
+	public int getY() {
+		return (int) (r*Math.sin(ang));
 	}
 	
 	public int getR() {
@@ -57,7 +66,7 @@ public class Planet implements Runnable {
 	
 	public void paint(Graphics g) {
         g.setColor(getColor());
-        g.fillOval(r*(int)Math.cos(ang), r*(int)Math.sin(ang), 2*getSelfR(), 2*getSelfR());
+        g.fillOval(getX(), getY(), 2*getSelfR(), 2*getSelfR());
         if (img != null && img.length > 0) {
             g.drawImage(img[i], r*(int)Math.cos(ang), r*(int)Math.sin(ang), new ImageObserver() {
                 @Override
@@ -80,6 +89,14 @@ public class Planet implements Runnable {
             }
         }
 		
+	}
+
+	public int getMass() {
+		return mass;
+	}
+
+	public void setMass(int mass) {
+		this.mass = mass;
 	}
 
 }

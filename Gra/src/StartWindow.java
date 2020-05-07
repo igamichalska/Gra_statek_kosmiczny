@@ -32,17 +32,15 @@ public class StartWindow extends JFrame {
 		
 		String[] pozT = {"Latwy", "Sredni", "Trudny", "Kosmicznie trudny"};
 		String[] planety = { "Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran"};
-		JComboBox wybpt = new JComboBox(pozT);
-		//wybpt.setAlignmentY(Component.RIGHT_ALIGNMENT);
-		JComboBox wybPlanetyS = new JComboBox(planety);
-		//wybPlanetyS.setAlignmentY(Component.RIGHT_ALIGNMENT);
-		JComboBox wybPlanetyD = new JComboBox(planety);
-		//wybPlanetyD.setAlignmentY(Component.RIGHT_ALIGNMENT);
+		
+		JComboBox<String> wybPT = new JComboBox<String>(pozT);
+		JComboBox<String> wybPlanetyS = new JComboBox<String>(planety);
+		JComboBox<String> wybPlanetyD = new JComboBox<String>(planety);
 		
 		pt = new CPanel();
 		pt.add(new JLabel("Poziom trudnosci: "));
 		pt.add(Box.createHorizontalGlue());
-		pt.add(wybpt);
+		pt.add(wybPT);
 		
 		plS = new CPanel();
 		plS.add(new JLabel("Planeta startowa:"));
