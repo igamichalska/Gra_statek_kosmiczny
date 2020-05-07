@@ -26,7 +26,12 @@ import javax.swing.JTextField;
 public class GUI extends JFrame {
 
 	JPanel lewy, gorny;
+<<<<<<< Updated upstream
 	GamePanel prawy;
+=======
+	GameEngine engine;
+	static GamePanel prawy;
+>>>>>>> Stashed changes
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;
@@ -85,6 +90,8 @@ public class GUI extends JFrame {
 		this.add(lewy, BorderLayout.LINE_START);
 		
 		prawy = new GamePanel(getWidth(), getHeight());
+		engine = new GameEngine(prawy);
+		//engine.start();
 //			prawy.addPlanet(200, 300, 50, 50, 10 , 10, Color.blue); //merkury np
 //			prawy.addPlanet(500, 300, 200, 200, 0, 0, Color.yellow); //sun
 //			prawy.addPlanet(0, 200, 100, 100, 10, 5, Color.red); 

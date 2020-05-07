@@ -14,6 +14,8 @@ public class GameEngine implements Runnable {
 	public GameEngine(GamePanel panel){
 		super();
 		this.panel = panel;
+		
+		
 	}
 	
 	public void start() {
@@ -57,10 +59,8 @@ public class GameEngine implements Runnable {
 				
 			}
 			if(render) {
-				
-				//
-				// 			panel.display(planets)
-				//
+				panel.repaint();			
+				panel.display(planets);
 				
 			} else {
 				try {

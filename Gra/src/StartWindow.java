@@ -72,7 +72,12 @@ public class StartWindow extends JFrame {
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+<<<<<<< Updated upstream
 				engine = new GameEngine(frame.prawy);
+=======
+				
+				dispose();
+>>>>>>> Stashed changes
 			}
 		});
 		

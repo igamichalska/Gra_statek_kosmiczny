@@ -51,13 +51,14 @@ public class GamePanel extends JPanel implements Runnable {
 			repaint();
 		}
 	}
+	public void display(List<Planet> planets) {
+		for (Planet pr : planets) {
+			pr.paint(g);
+		}
+	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-//		for (Planet pr : planets) {
-//			pr.paint(g);
-//		}
-
+		g.drawImage(img, width, height, null);
 	}
 }
