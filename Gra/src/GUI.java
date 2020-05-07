@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 public class GUI extends JFrame {
 
 	JPanel lewy, gorny;
-	GamePanel prawy;
+	static GamePanel prawy;
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;

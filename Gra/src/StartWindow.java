@@ -20,6 +20,7 @@ public class StartWindow extends JFrame {
 	CPanel pt, plS, plD, kol;
 	JPanel glowny;
 	JButton start;
+	GameEngine engine;
 	
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
@@ -69,10 +70,11 @@ public class StartWindow extends JFrame {
 		
 		start = new JButton("ROZPOCZNIJ GRE");
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		start.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//			}
-//		});
+		start.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				engine = new GameEngine(GUI.prawy);
+			}
+		});
 		
 		glowny.add(pt); glowny.add(plS); glowny.add(plD); glowny.add(kol); 
 		glowny.add(Box.createRigidArea(new Dimension(0,20)));
