@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 public class GUI extends JFrame {
 
 	JPanel lewy, gorny;
-	static GamePanel prawy;
+	GamePanel prawy;
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;
@@ -48,12 +48,12 @@ public class GUI extends JFrame {
 			lewy.setPreferredSize(new Dimension(200,600));
 			lewy.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			
+			StartWindow okno = new StartWindow(this);
 			startbutton = new JButton("START");
 		    startbutton.setMaximumSize(new Dimension(150,100));
 		    startbutton.addActionListener(new ActionListener() {
 		    	@Override
 		    	public void actionPerformed(ActionEvent arg0) {
-		    		StartWindow okno = new StartWindow();
 		    		okno.setVisible(true);
 		    	}
 		    });

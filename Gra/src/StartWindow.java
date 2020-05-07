@@ -22,7 +22,7 @@ public class StartWindow extends JFrame {
 	JButton start;
 	GameEngine engine;
 	
-	public StartWindow() throws HeadlessException {
+	public StartWindow(GUI frame) throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -72,7 +72,7 @@ public class StartWindow extends JFrame {
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				engine = new GameEngine(GUI.prawy);
+				engine = new GameEngine(frame.prawy);
 			}
 		});
 		
@@ -83,10 +83,10 @@ public class StartWindow extends JFrame {
 		this.pack();
 	}
 	
-	public static void main(String[] args) {
-		StartWindow frame = new StartWindow();
-		frame.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		StartWindow frame = new StartWindow();
+//		frame.setVisible(true);
+//	}
 	
 	private class CPanel extends JPanel {
 		public CPanel() 
