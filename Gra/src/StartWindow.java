@@ -23,7 +23,7 @@ public class StartWindow extends JFrame {
 	
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		glowny = new JPanel();
 		glowny.setPreferredSize(new Dimension(400,300));
@@ -69,6 +69,10 @@ public class StartWindow extends JFrame {
 		
 		start = new JButton("ROZPOCZNIJ GRE");
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		start.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//			}
+//		});
 		
 		glowny.add(pt); glowny.add(plS); glowny.add(plD); glowny.add(kol); 
 		glowny.add(Box.createRigidArea(new Dimension(0,20)));

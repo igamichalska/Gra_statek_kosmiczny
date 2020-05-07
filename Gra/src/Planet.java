@@ -7,77 +7,59 @@ import java.awt.image.ImageObserver;
 
 public class Planet implements Runnable {
 
-	private int xPos = 50;
-	private int yPos = 50;
-    private int width = 20;
-    private int height = 20;
+	private int r = 50;
+	private int ang = 0;
+	private int angV = 5;
+    private int selfR = 20;
     private Color color = Color.BLACK;
-    private int vx = 0;
-    private int vy = 0;
     private BufferedImage[] img = null;
     private int i = 0;
     private boolean running = true;
     
-	public int getVx() {
-        return vx;
-    }
-
-    public void setVx(int vx) {
-        this.vx = vx;
-    }
-
-    public int getVy() {
-        return vy;
-    }
-
-    public void setVy(int vy) {
-        this.vy = vy;
-    }
-
-    public int getX() {
-		return xPos;
+	public Planet(int r, int selfR, int ang, int angV, Color c) {
+		this.r = r;
+		this.selfR = selfR;
+		this.ang = ang;
+		this.angV = angV;
+		this.color = c;
 	}
-
-	public void setX(int xPos) {
-		this.xPos = xPos;
+	
+	public int getR() {
+		return r;
 	}
-
-    public void setY(int yPos){
-        this.yPos = yPos;
-    }
-
-    public int getY(){
-        return yPos;
-    }
-
-    public int getWidth(){
-        return width;
-    } 
-
-    public int getHeight(){
-        return height;
-    }
-
-	public void setWidth(int width) {
-		this.width = width;
+	public void setR(int r) {
+		this.r = r;
 	}
-
-	public void setHeight(int height) {
-		this.height = height;
+	public int getAng() {
+		return ang;
 	}
-
-    public Color getColor() {
+	public void setAng(int ang) {
+		this.ang = ang;
+	}
+	public int getAngV() {
+		return angV;
+	}
+	public void setAngV(int angV) {
+		this.angV = angV;
+	}
+	public int getSelfR() {
+		return selfR;
+	}
+	public void setSelfR(int selfR) {
+		this.selfR = selfR;
+	}
+	public Color getColor() {
 		return color;
 	}
-
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
 	public void paint(Graphics g) {
         g.setColor(getColor());
-        g.fillOval(xPos, yPos, getWidth(), getHeight());
+        g.fillOval(r*(int)Math.cos(ang), r*(int)Math.sin(ang), 2*getSelfR(), 2*getSelfR());
         if (img != null && img.length > 0) {
-            g.drawImage(img[i], xPos, yPos, new ImageObserver() {
+            g.drawImage(img[i], r*(int)Math.cos(ang), r*(int)Math.sin(ang), new ImageObserver() {
                 @Override
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;

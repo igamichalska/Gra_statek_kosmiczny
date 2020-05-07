@@ -85,14 +85,14 @@ public class GUI extends JFrame {
 		this.add(lewy, BorderLayout.LINE_START);
 		
 		prawy = new GamePanel(getWidth(), getHeight());
-			prawy.addPlanet(200, 300, 50, 50, 10 , 10, Color.blue); //merkury np
-			prawy.addPlanet(500, 300, 200, 200, 0, 0, Color.yellow); //sun
-			prawy.addPlanet(0, 200, 100, 100, 10, 5, Color.red); 
-
-			ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-			exec.execute(prawy);
-			exec.shutdown();
-				
+//			prawy.addPlanet(200, 300, 50, 50, 10 , 10, Color.blue); //merkury np
+//			prawy.addPlanet(500, 300, 200, 200, 0, 0, Color.yellow); //sun
+//			prawy.addPlanet(0, 200, 100, 100, 10, 5, Color.red); 
+//
+//			ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+//			exec.execute(prawy);
+//			exec.shutdown();
+//				
 		this.add(prawy, BorderLayout.CENTER);
 			gorny = new JPanel();
 			slider.setPaintTicks(true);
