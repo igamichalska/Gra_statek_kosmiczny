@@ -12,6 +12,13 @@ public class Player {
 	public double calcDistSqr(Planet p) {
 		return Math.pow( (this.x-p.getX())^2 + (this.y - p.getY())^2, 0.5 );
 	}
+	public int calcPosX(int xs, int ys, int width) {
+		return (int)(((getX()-xs)+width/2)*Math.cos(getAng())-((getY()-ys)+width/2)*Math.sin(getAng()));
+		
+	}
+	public int calcPosY(int xs, int ys, int height) {
+		return (int)(((getX()-xs)+height/2)*Math.sin(getAng())+((getY()-ys)+height/2)*Math.cos(getAng()));
+	}
 	
 	public int getX() {
 		return x;

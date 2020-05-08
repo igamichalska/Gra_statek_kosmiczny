@@ -43,7 +43,10 @@ public class GameFrame {
 		
 	}
 	
-	public void update(List<Planet> planets) {
+	public void update(List<Planet> planets, Player player) {
+		
+		System.out.println(player.calcPosX(player.getX(), player.getY(), canvas.getWidth()));
+		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
 		
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {

@@ -41,7 +41,7 @@ public class GameEngine implements Runnable {
 		planets.add(new Planet(500, 20, 0, 0.004, Color.blue));
 		player = new Player();
 		thread = new Thread(this);
-		thread.run();
+		thread.start();
 	}
 	
 	public void run() {
@@ -111,16 +111,8 @@ public class GameEngine implements Runnable {
 				}
 			}
 			if(render) {
-				frame.update(planets);
+				frame.update(planets, player);
 			
-				//panel.repaint();			
-				//panel.display(planets);
-
-				
-				//System.out.println("render");
-				//
-				// 			panel.display(planets)
-				//
 
 				
 			} else {
