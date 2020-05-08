@@ -5,22 +5,24 @@ import java.util.List;
 public class GameEngine implements Runnable {
 
 	GamePanel panel;
+	private GameFrame frame;
+	
 	private Thread thread;
 	private boolean running;
-	private final double MAXUPDATE = 1.0/60.0;
+	private final double MAXUPDATE = 1.0/30.0;
+	
 	private Player player;
-	
 	private int fuel;
-	private boolean upKey = false;
-	private boolean downKey = false;
 	
-	private final int GRAV = 9;
-	private final int ACCF = 10;
-	private final int ACCB = 5;
+	
+	private ControlListener control;
+	
+	private final double GRAV = 1;
+	private final double ACCF = 0.1;
+	private final double ACCB = 0.5;
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
-	private GameFrame frame;
 	
 	
 	List<Planet> planets = new ArrayList<Planet>();
@@ -38,10 +40,13 @@ public class GameEngine implements Runnable {
 	public void start() {
 		frame = new GameFrame();
 		
-		planets.add(new Planet(400, 20, 0, 0.004, Color.blue));
-		planets.add(new Planet(0, 20, 0, 0, Color.green));
-		player = new Player();
+		planets.add(new Planet(400, 20, 0, 0.004, 10, Color.blue));
+		planets.add(new Planet(0, 50, 0, 0, 0, Color.green));
+		planets.add(new Planet(300, 20, 1, 0.004, 10, Color.blue));
+		planets.add(new Planet(200, 30, 0, 0.008, 0, Color.green));
+		player = new Player(100,100);
 		thread = new Thread(this);
+		control = new ControlListener(this);
 		thread.start();
 	}
 	
@@ -62,6 +67,9 @@ public class GameEngine implements Runnable {
 		double frames = 0;
 		double fps = 0;
 		
+
+		//System.out.println(accX);
+		
 		while(running) {
 			
 			render = false;
@@ -72,28 +80,34 @@ public class GameEngine implements Runnable {
 			unprocessedTime += passedTime;
 			frameTime += passedTime;
 			
+
+			
+			
 			while(unprocessedTime >= MAXUPDATE) {
 				unprocessedTime -= MAXUPDATE;
 				
 				for (Planet pr: planets) {
 					pr.setAng(pr.getAng() + pr.getAngV());
-					accX += GRAV*pr.getMass()*(pr.getX()-player.getX())/Math.pow(player.calcDistSqr(pr), 3);
-					accX += GRAV*pr.getMass()*(pr.getY()-player.getY())/Math.pow(player.calcDistSqr(pr), 3);
+//					accX += GRAV*pr.getMass()*(pr.getX()-player.getX())/Math.pow(player.calcDistSqr(pr), 3);
+//					accY += GRAV*pr.getMass()*(pr.getY()-player.getY())/Math.pow(player.calcDistSqr(pr), 3);
 				}
+				accX = 0;
+				accY = 0;
 				
-				if(upKey) {
+				if(control.isUpKey() && fuel>=0) {
+					
 					accX += ACCF*Math.cos(player.getAng());
 					accY += ACCF*Math.sin(player.getAng());
 					fuel--;
 				}
-				if(downKey) {
+				if(control.isDownKey()&& fuel>=0) {
 					accX -= ACCB*Math.cos(player.getAng());
 					accY -= ACCB*Math.sin(player.getAng());
 					fuel--;
 				}
 				
-				player.setaX((int)accX);
-				player.setaY((int)accY);
+				player.setaX(accX);
+				player.setaY(accY);
 				
 				player.setvX(player.getvX() + player.getaX());
 				player.setvY(player.getvX() + player.getaY());
@@ -108,18 +122,12 @@ public class GameEngine implements Runnable {
 					frameTime = 0;
 					fps = frames;
 					frames = 0;
+					System.out.println("fuel: " + fuel);
 					System.out.println("fps: " + fps);
 				}
 			}
 			if(render) {
-<<<<<<< Updated upstream
 				frame.update(planets, player);
-			
-
-=======
-				frame.update(planets,player);
->>>>>>> Stashed changes
-				
 			} else {
 				try {
 					Thread.sleep(1);
@@ -147,13 +155,6 @@ public class GameEngine implements Runnable {
 		this.running = running;
 	}
 
-	public void setUpKey(boolean upKey) {
-		this.upKey = upKey;
-	}
-
-	public void setDownKey(boolean downKey) {
-		this.downKey = downKey;
-	}
 	
 	public static void main(String[] args) {
 		GameEngine game = new GameEngine();

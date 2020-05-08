@@ -110,26 +110,13 @@ public class GUI extends JFrame {
 			this.pack();
 			this.setResizable(false);
 	}
+	
 	ActionListener autorListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			JOptionPane.showMessageDialog(null, "Iga Michalska, Jan £oziñski");
 		}
 	};
-	public GUI(GraphicsConfiguration arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GUI(String arg0) throws HeadlessException {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GUI(String arg0, GraphicsConfiguration arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
 
 	public static void main(String[] args) {
 		GUI frame = new GUI();
@@ -137,11 +124,5 @@ public class GUI extends JFrame {
 		frame.setVisible(true);
 	}
 
-
-
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

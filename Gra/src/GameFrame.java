@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -20,9 +21,9 @@ public class GameFrame {
 	
 	public GameFrame(){
 		
-		img = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
+		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
 		canvas = new Canvas();
-		Dimension s = new Dimension (500,500);
+		Dimension s = new Dimension (800,800);
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
@@ -45,17 +46,24 @@ public class GameFrame {
 	}
 	
 	public void update(List<Planet> planets, Player player) {
-<<<<<<< Updated upstream
+//		System.out.println(player.calcPosX(player.getX(), player.getY(), canvas.getWidth()));
+//		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
 		
-		System.out.println(player.calcPosX(player.getX(), player.getY(), canvas.getWidth()));
-		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
-		
-=======
->>>>>>> Stashed changes
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
-			pr.paint(g);
+			g.setColor(pr.getColor());
+			g.fillOval(
+					player.calcPosX(pr.getX(), pr.getY(), frame.getWidth()) - pr.getSelfR(),
+					player.calcPosY(pr.getX(), pr.getY(), frame.getHeight()) - pr.getSelfR(),
+					2*pr.getSelfR(),
+					2*pr.getSelfR()
+					);
 		}
+		g.setColor(Color.cyan);
+		g.fillRect(
+				player.calcPosX((int)player.getX(), (int)player.getY(), frame.getWidth()),
+				player.calcPosY((int)player.getX(), (int)player.getY(), frame.getWidth()),
+				10, 10);
 		bs.show();
 		
 	}

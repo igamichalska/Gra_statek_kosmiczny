@@ -1,17 +1,29 @@
 
 public class Player {
 	
-	private int x;
-	private int y;
-	private int vX;
-	private int vY;
-	private int aX;
-	private int aY;
+	private double x;
+	private double y;
+	private double vX;
+	private double vY;
+	private double aX;
+	private double aY;
 	private double ang;
 	
-	public double calcDistSqr(Planet p) {
-		return Math.pow( (this.x-p.getX())^2 + (this.y - p.getY())^2, 0.5 );
+	public Player(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.ang = 0;
+		this.aX = 0;
+		this.aY = 0;
+		this.vX = 0;
+		this.vY = 0;
 	}
+	
+	public double calcDistSqr(Planet p) {
+		return Math.pow( Math.pow((this.x-p.getX()),2) + Math.pow((this.y-p.getY()),2), 0.5);
+	}
+	
+	
 	public int calcPosX(int xs, int ys, int width) {
 		return (int)(((getX()-xs)+width/2)*Math.cos(getAng())-((getY()-ys)+width/2)*Math.sin(getAng()));
 		
@@ -20,41 +32,41 @@ public class Player {
 		return (int)(((getX()-xs)+height/2)*Math.sin(getAng())+((getY()-ys)+height/2)*Math.cos(getAng()));
 	}
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public int getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
-	public int getvX() {
+	public double getvX() {
 		return vX;
 	}
-	public void setvX(int vX) {
-		this.vX = vX;
+	public void setvX(double d) {
+		this.vX = d;
 	}
-	public int getvY() {
+	public double getvY() {
 		return vY;
 	}
-	public void setvY(int vY) {
-		this.vY = vY;
+	public void setvY(double d) {
+		this.vY = d;
 	}
-	public int getaX() {
+	public double getaX() {
 		return aX;
 	}
-	public void setaX(int aX) {
-		this.aX = aX;
+	public void setaX(double accX) {
+		this.aX = accX;
 	}
-	public int getaY() {
+	public double getaY() {
 		return aY;
 	}
-	public void setaY(int aY) {
-		this.aY = aY;
+	public void setaY(double accY) {
+		this.aY = accY;
 	}
 
 	public double getAng() {
