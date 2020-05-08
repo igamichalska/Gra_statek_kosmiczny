@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -53,8 +54,14 @@ public class GameFrame {
 		
 		
 	}
-	public void update() {
+	
+	public void update(List<Planet> planets) {
+		
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
+		for(Planet pr: planets) {
+			g.drawOval(pr.getX(), pr.getY(), pr.getSelfR(), pr.getSelfR());
+		}
 		bs.show();
+		
 	}
 }

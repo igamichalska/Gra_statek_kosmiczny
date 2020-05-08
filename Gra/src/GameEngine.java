@@ -113,7 +113,7 @@ public class GameEngine implements Runnable {
 				}
 			}
 			if(render) {
-				frame.update();
+				frame.update(planets);
 			
 				//panel.repaint();			
 				//panel.display(planets);
