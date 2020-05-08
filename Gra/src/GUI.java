@@ -60,7 +60,7 @@ public class GUI extends JFrame {
 		    	public void actionPerformed(ActionEvent arg0) {
 		    		StartWindow okno = new StartWindow();
 		    		okno.setVisible(true);
-		    		dispose();
+		    		//dispose();
 		    	}
 		    });
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);

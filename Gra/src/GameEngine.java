@@ -17,9 +17,9 @@ public class GameEngine implements Runnable {
 	
 	private ControlListener control;
 	
-	private final double GRAV = 1;
-	private final double ACCF = 0.1;
-	private final double ACCB = 0.5;
+	private final double GRAV = 5;
+	private final double ACCF = 0.08;
+	private final double ACCB = 0.04;
 	private final double ROT = 0.1;
 	
 	private int width =320, height = 240;
@@ -27,6 +27,7 @@ public class GameEngine implements Runnable {
 	
 	
 	List<Planet> planets = new ArrayList<Planet>();
+	List<Float> distance = new ArrayList<Float>();
 	
 	public GameEngine(GameFrame panel){
 		super();
@@ -41,10 +42,10 @@ public class GameEngine implements Runnable {
 	public void start() {
 		frame = new GameFrame();
 		
-		planets.add(new Planet(400, 20, 0, 0.004, 10, Color.blue));
+		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
 		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
-		planets.add(new Planet(300, 20, 1, 0.004, 10, Color.blue));
-		planets.add(new Planet(200, 30, 0, 0.008, 1, Color.green));
+		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
+		planets.add(new Planet(200, 30, 6.28*Math.random(), 0.008, 1, Color.green));
 		player = new Player(100,100);
 		thread = new Thread(this);
 		control = new ControlListener(this);
@@ -81,16 +82,16 @@ public class GameEngine implements Runnable {
 			unprocessedTime += passedTime;
 			frameTime += passedTime;
 			
-
-			
 			
 			while(unprocessedTime >= MAXUPDATE) {
 				unprocessedTime -= MAXUPDATE;
 				
 				accX = 0;
 				accY = 0;
+				distance.clear();
 				
 				for (Planet pr: planets) {
+					distance.add((float) player.calcDist(pr));
 					pr.setAng(pr.getAng() + pr.getAngV());
 					accX += GRAV * pr.getMass() * (pr.getX() - player.getX()) / Math.pow(player.calcDist(pr), 3);
 					accY += GRAV * pr.getMass() * (pr.getY() - player.getY()) / Math.pow(player.calcDist(pr), 3);
@@ -122,8 +123,29 @@ public class GameEngine implements Runnable {
 				player.setX(player.getX() + player.getvX());
 				player.setY(player.getY() + player.getvY());
 				
-				render = true;
 				
+				for (int i=0; i<planets.size(); i++) 
+				{	
+					Planet p = planets.get(i);
+					
+					if(player.calcDist(p)<= p.getSelfR()) 
+					{	
+						if((player.calcDist(p) - distance.get(i)) >=0.01) {
+							
+							System.out.println("ZDERZENIEE");
+							
+						} else {
+							System.out.println("WYL¥DOWAL");
+						}
+						running = false;
+						
+					}
+							
+						
+				}
+				
+				
+				render = true;
 				frames ++;
 				if(frameTime >= 1.0) {
 					frameTime = 0;
@@ -134,6 +156,8 @@ public class GameEngine implements Runnable {
 					System.out.println("angle  : " + Math.cos(player.getAng()));
 				}
 			}
+		
+		
 			if(render) {
 				frame.update(planets, player);
 			} else {
