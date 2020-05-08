@@ -21,11 +21,10 @@ public class StartWindow extends JFrame {
 	JPanel glowny;
 	JButton start;
 	GameEngine engine;
-	GameFrame frame;
 	
-	public StartWindow() throws HeadlessException {
+	public StartWindow(GUI frame) throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		glowny = new JPanel();
 		glowny.setPreferredSize(new Dimension(400,300));
@@ -72,10 +71,7 @@ public class StartWindow extends JFrame {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				//frame = new GameFrame();
-				engine = new GameEngine();
-				engine.start();
-				
+				frame.engine.start();
 				
 				dispose();
 			}

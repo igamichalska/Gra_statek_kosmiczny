@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -8,22 +7,22 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameFrame {
 	
 	//GamePanel panel;
-	
 	private JFrame frame;
 	private BufferedImage img;
 	private Graphics g;
 	private BufferStrategy bs;
 	private Canvas canvas;
 	
-	public GameFrame(){
+	public GameFrame(GameEngine ge){
 		
-		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
+		img = new BufferedImage(ge.getWidth(), ge.getHeight(), BufferedImage.TYPE_INT_RGB);
 		canvas = new Canvas();
-		Dimension s = new Dimension (800,800);
+		Dimension s = new Dimension ((int)(ge.getWidth()*ge.getScale()),(int)(ge.getHeight() * ge.getScale()));
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
@@ -37,6 +36,19 @@ public class GameFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
+		//panel = new GamePanel(900, 700);
+		
+
+//		JPanel panel = new JPanel();
+//		frame.add(panel);
+		/*ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+		exec.execute(panel);
+		exec.shutdown();*/
+		/*this.add(panel, BorderLayout.CENTER);
+		this.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setVisible(true);*/
 		
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
@@ -45,32 +57,14 @@ public class GameFrame {
 		
 	}
 	
-	public void update(List<Planet> planets, Player player) {
-//		System.out.println(player.calcPosX(player.getX(), player.getY(), canvas.getWidth()));
-//		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
+	public void update(List<Planet> planets) {
 		
-		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
+		//g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
 			g.setColor(pr.getColor());
-			g.fillOval(
-					player.calcPosX(pr.getX(), pr.getY(), frame.getWidth()) - pr.getSelfR(),
-					player.calcPosY(pr.getX(), pr.getY(), frame.getHeight()) - pr.getSelfR(),
-					2*pr.getSelfR(),
-					2*pr.getSelfR()
-					);
+			g.fillOval(pr.getX()-pr.getSelfR(), pr.getY()-pr.getSelfR(), 2*pr.getSelfR(), 2*pr.getSelfR());
 		}
-		g.setColor(Color.cyan);
-		g.fillRect(
-				player.calcPosX((int)player.getX(), (int)player.getY(), frame.getWidth()),
-				player.calcPosY((int)player.getX(), (int)player.getY(), frame.getWidth()),
-				10, 10);
 		bs.show();
 		
-	}
-	public BufferedImage getImg() {
-		return img;
-	}
-	public Canvas getCanvas() {
-		return canvas;
 	}
 }
