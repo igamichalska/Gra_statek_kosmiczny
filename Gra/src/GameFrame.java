@@ -64,4 +64,10 @@ public class GameFrame {
 		bs.show();
 		
 	}
+	public BufferedImage getImg() {
+		return img;
+	}
+	public Canvas getCanvas() {
+		return canvas;
+	}
 }
