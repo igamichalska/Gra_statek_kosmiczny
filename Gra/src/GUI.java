@@ -26,12 +26,11 @@ import javax.swing.JTextField;
 public class GUI extends JFrame {
 
 	JPanel lewy, gorny;
-<<<<<<< Updated upstream
+
 	GamePanel prawy;
-=======
+
 	GameEngine engine;
-	static GamePanel prawy;
->>>>>>> Stashed changes
+
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;
