@@ -20,7 +20,7 @@ public class GameEngine implements Runnable {
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
-	private GameFrame frame;
+	//private GameFrame frame;
 	
 	
 	List<Planet> planets = new ArrayList<Planet>();
@@ -36,15 +36,17 @@ public class GameEngine implements Runnable {
 	}
 	
 	public void start() {
-		frame = new GameFrame(this);
+		//frame = new GameFrame(this);
 		
 		planets.add(new Planet(0, 50, 0, 0, Color.green));
 		planets.add(new Planet(100, 20, 0, 0.004, Color.blue));
 		planets.add(new Planet(200, 60, 50, 0.02, Color.green));
 		player = new Player();
+		
 		thread = new Thread(this);
-		thread.run();
+		thread.start();
 	}
+	
 	
 	public void run() {
 
@@ -113,7 +115,7 @@ public class GameEngine implements Runnable {
 				}
 			}
 			if(render) {
-				frame.update(planets);
+				panel.update(planets);
 			
 				//panel.repaint();			
 				//panel.display(planets);
@@ -160,10 +162,10 @@ public class GameEngine implements Runnable {
 		this.downKey = downKey;
 	}
 	
-	public static void main(String[] args) {
-		GameEngine game = new GameEngine();
-		game.start();
-	}
+//	public static void main(String[] args) {
+//		GameEngine game = new GameEngine();
+//		game.start();
+//	}
 	public int getWidth() {
 		return width;
 	}

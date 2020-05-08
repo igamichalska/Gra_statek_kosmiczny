@@ -71,8 +71,7 @@ public class StartWindow extends JFrame {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				engine = new GameEngine(frame.prawy);
-
+				frame.engine.start();
 				
 				dispose();
 			}

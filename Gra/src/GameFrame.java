@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameFrame {
 	
@@ -38,7 +39,8 @@ public class GameFrame {
 		//panel = new GamePanel(900, 700);
 		
 
-
+//		JPanel panel = new JPanel();
+//		frame.add(panel);
 		/*ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
 		exec.execute(panel);
 		exec.shutdown();*/
@@ -57,7 +59,7 @@ public class GameFrame {
 	
 	public void update(List<Planet> planets) {
 		
-		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
+		//g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
 			g.setColor(pr.getColor());
 			g.fillOval(pr.getX()-pr.getSelfR(), pr.getY()-pr.getSelfR(), 2*pr.getSelfR(), 2*pr.getSelfR());

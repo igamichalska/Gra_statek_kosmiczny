@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel {
 	
 	public static int width;
 	public static int height;
@@ -26,35 +26,40 @@ public class GamePanel extends JPanel implements Runnable {
 		setFocusable(true);
 		requestFocus();
 		setBackground(Color.black);
+		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		
 	}
 	
-	public void addNotify() {
-		super.addNotify();
+//	public void addNotify() {
+//		super.addNotify();
+//		
+//		if (thread ==null) {
+//			thread = new Thread (this, "Game Thread");
+//			thread.start();
+//		}
+//	}
+//	
+//	public void init() {
+//		running = true;
+//		
+//		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+//		g = (Graphics2D) img.getGraphics();
+//	}
+//	
+//	public void run() {
+//		init();
+//		while(running) {
+//			repaint();
+//		}
+//	}
+public void update(List<Planet> planets) {
 		
-		if (thread ==null) {
-			thread = new Thread (this, "Game Thread");
-			thread.start();
+		g = img.createGraphics();
+		for(Planet pr: planets) {
+			g.setColor(pr.getColor());
+			g.fillOval(pr.getX()-pr.getSelfR(), pr.getY()-pr.getSelfR(), 2*pr.getSelfR(), 2*pr.getSelfR());
 		}
-	}
-	
-	public void init() {
-		running = true;
-		
-		img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		g = (Graphics2D) img.getGraphics();
-	}
-	
-	public void run() {
-		init();
-		while(running) {
-			repaint();
-		}
-	}
-	public void display(List<Planet> planets) {
-		for (Planet pr : planets) {
-			pr.paint(g);
-		}
+		repaint();
 	}
 	
 	public void paintComponent(Graphics g) {

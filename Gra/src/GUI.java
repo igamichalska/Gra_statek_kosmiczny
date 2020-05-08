@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 
 public class GUI extends JFrame {
 
-	JPanel lewy, gorny;
+	JPanel lewy;
 
 	GamePanel prawy;
 
@@ -45,8 +45,6 @@ public class GUI extends JFrame {
 				this.setTitle("Kosmiczne Podró¿e");
 		lewy = new JPanel();
 			lewy.setLayout(new BoxLayout(lewy, 3));
-			
-			this.setTitle("Kosmiczne Podró¿e");
 			lewy = new JPanel();
 			lewy.setLayout(new BoxLayout(lewy, BoxLayout.PAGE_AXIS));
 			lewy.setPreferredSize(new Dimension(200,600));
@@ -61,6 +59,7 @@ public class GUI extends JFrame {
 		    		okno.setVisible(true);
 		    	}
 		    });
+		    
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lewy.add(startbutton);
 			
@@ -81,35 +80,19 @@ public class GUI extends JFrame {
 			lewy.add(labelpaliwo);
 			
 			slider = new JSlider(JSlider.VERTICAL, 0, 100, 20);
-				slider.setPaintTicks(true);
-				slider.setPaintLabels(true);
-				slider.setMinorTickSpacing(5);
-				slider.setMajorTickSpacing(10);
-					lewy.add(slider);
-		this.add(lewy, BorderLayout.LINE_START);
-		
-		prawy = new GamePanel(getWidth(), getHeight());
-		engine = new GameEngine(prawy);
-		//engine.start();
-//			prawy.addPlanet(200, 300, 50, 50, 10 , 10, Color.blue); //merkury np
-//			prawy.addPlanet(500, 300, 200, 200, 0, 0, Color.yellow); //sun
-//			prawy.addPlanet(0, 200, 100, 100, 10, 5, Color.red); 
-//
-//			ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-//			exec.execute(prawy);
-//			exec.shutdown();
-//				
-		this.add(prawy, BorderLayout.CENTER);
-			gorny = new JPanel();
 			slider.setPaintTicks(true);
 			slider.setPaintLabels(true);
 			slider.setMinorTickSpacing(5);
 			slider.setMajorTickSpacing(10);
 			slider.setMaximumSize(new Dimension(150,200));
 			slider.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
 			lewy.add(slider);
 			this.add(lewy, BorderLayout.LINE_START);
+		
+		prawy = new GamePanel(getWidth(), getHeight());
+		engine = new GameEngine(prawy);
+		this.add(prawy, BorderLayout.CENTER);
+			
 			
 			menubar = new JMenuBar();
 			autor = new JMenu ("Autor");
@@ -127,20 +110,7 @@ public class GUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Iga Michalska, Jan £oziñski");
 		}
 	};
-	public GUI(GraphicsConfiguration arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GUI(String arg0) throws HeadlessException {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GUI(String arg0, GraphicsConfiguration arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	public static void main(String[] args) {
 		GUI frame = new GUI();
@@ -148,11 +118,5 @@ public class GUI extends JFrame {
 		frame.setVisible(true);
 	}
 
-
-
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
