@@ -11,17 +11,18 @@ import javax.swing.JFrame;
 public class GameFrame {
 	
 	//GamePanel panel;
+	
 	private JFrame frame;
 	private BufferedImage img;
 	private Graphics g;
 	private BufferStrategy bs;
 	private Canvas canvas;
 	
-	public GameFrame(GameEngine ge){
+	public GameFrame(){
 		
-		img = new BufferedImage(ge.getWidth(), ge.getHeight(), BufferedImage.TYPE_INT_RGB);
+		img = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		canvas = new Canvas();
-		Dimension s = new Dimension ((int)(ge.getWidth()*ge.getScale()),(int)(ge.getHeight() * ge.getScale()));
+		Dimension s = new Dimension (500,500);
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
@@ -44,10 +45,13 @@ public class GameFrame {
 	}
 	
 	public void update(List<Planet> planets, Player player) {
+<<<<<<< Updated upstream
 		
 		System.out.println(player.calcPosX(player.getX(), player.getY(), canvas.getWidth()));
 		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
 		
+=======
+>>>>>>> Stashed changes
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
 			pr.paint(g);

@@ -25,9 +25,9 @@ public class GameEngine implements Runnable {
 	
 	List<Planet> planets = new ArrayList<Planet>();
 	
-	public GameEngine(GamePanel panel){
+	public GameEngine(GameFrame panel){
 		super();
-		this.panel = panel;
+		//this.frame = panel;
 		
 		
 	}
@@ -36,9 +36,10 @@ public class GameEngine implements Runnable {
 	}
 	
 	public void start() {
-		frame = new GameFrame(this);
+		frame = new GameFrame();
 		
-		planets.add(new Planet(500, 20, 0, 0.004, Color.blue));
+		planets.add(new Planet(400, 20, 0, 0.004, Color.blue));
+		planets.add(new Planet(0, 20, 0, 0, Color.green));
 		player = new Player();
 		thread = new Thread(this);
 		thread.start();
@@ -111,9 +112,13 @@ public class GameEngine implements Runnable {
 				}
 			}
 			if(render) {
+<<<<<<< Updated upstream
 				frame.update(planets, player);
 			
 
+=======
+				frame.update(planets,player);
+>>>>>>> Stashed changes
 				
 			} else {
 				try {
