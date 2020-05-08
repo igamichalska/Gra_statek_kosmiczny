@@ -21,7 +21,6 @@ public class GameEngine implements Runnable {
 	private int width =320, height = 240;
 	private float scale = 3f;
 	private GameFrame frame;
-	private Renderer renderer;
 	
 	
 	List<Planet> planets = new ArrayList<Planet>();
@@ -38,11 +37,8 @@ public class GameEngine implements Runnable {
 	
 	public void start() {
 		frame = new GameFrame(this);
-		renderer = new Renderer(this);
 		
-		planets.add(new Planet(0, 50, 0, 0, Color.green));
 		planets.add(new Planet(100, 20, 0, 0.004, Color.blue));
-		planets.add(new Planet(200, 60, 50, 0.02, Color.green));
 		player = new Player();
 		thread = new Thread(this);
 		thread.run();
