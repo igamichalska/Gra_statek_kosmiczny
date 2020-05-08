@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
@@ -9,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +20,7 @@ public class StartWindow extends JFrame {
 	JButton start;
 	GameEngine engine;
 	GameFrame frame;
+	static String cmd="Czerwony";
 	
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
@@ -33,10 +32,12 @@ public class StartWindow extends JFrame {
 		
 		String[] pozT = {"Latwy", "Sredni", "Trudny", "Kosmicznie trudny"};
 		String[] planety = { "Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran"};
+		String[] kolory = {"Czerwony", "Niebieski", "Szary"};
 		
 		JComboBox<String> wybPT = new JComboBox<String>(pozT);
 		JComboBox<String> wybPlanetyS = new JComboBox<String>(planety);
 		JComboBox<String> wybPlanetyD = new JComboBox<String>(planety);
+		JComboBox<String> wybKolor = new JComboBox<String>(kolory);
 		
 		pt = new CPanel();
 		pt.add(new JLabel("Poziom trudnosci: "));
@@ -54,25 +55,24 @@ public class StartWindow extends JFrame {
 		plD.add(wybPlanetyD);
 		
 		kol = new CPanel();
-		kol.add(new JLabel("Kolor statku: "));
-		JButton button = new JButton("Wybierz Kolor");
-		button.addActionListener(new ActionListener() {
+			kol.add(new JLabel("Kolor statku: "));
+			kol.add(Box.createHorizontalGlue());
+		
+			wybKolor.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//Kolor bêdzie zaimplementowany wewn¹trz programu
-				Color c1 = JColorChooser.showDialog(null, "Choose Color", null);
-				button.setBackground(c1);
+				cmd = (String) wybKolor.getSelectedItem();
 			}
+			
 		});
-		kol.add(Box.createHorizontalGlue());
-		kol.add(button);
+		kol.add(wybKolor);
 		
 		start = new JButton("ROZPOCZNIJ GRE");
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				//frame = new GameFrame();
 				engine = new GameEngine();
 				engine.start();
 				
@@ -87,11 +87,6 @@ public class StartWindow extends JFrame {
 		this.add(glowny);
 		this.pack();
 	}
-	
-//	public static void main(String[] args) {
-//		StartWindow frame = new StartWindow();
-//		frame.setVisible(true);
-//	}
 	
 	private class CPanel extends JPanel {
 		public CPanel() 

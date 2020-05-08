@@ -6,23 +6,45 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GameFrame {
 	
-	//GamePanel panel;
-	
 	private JFrame frame;
-	private BufferedImage img;
+	private BufferedImage img, img2;
 	private Graphics2D g;
 	private BufferStrategy bs;
 	private Canvas canvas;
+	String a;
+	URL sciezka;
 	
 	public GameFrame(){
 		
 		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
+		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
+		if (StartWindow.cmd == "Czerwony") {
+			a =  "pic_red.png";
+			}
+		else if(StartWindow.cmd == "Niebieski") {
+				a =  "pic_blue.png";
+			}
+		else if(StartWindow.cmd == "Szary") {
+				a =  "pic_grey.png";
+			}
+		sciezka = getClass().getResource(a);
+		if (sciezka != null) {
+            try {
+                img2 = ImageIO.read(sciezka);
+            } catch (IOException e) {
+            	System.out.println(e.getMessage());
+            }
+		}
+		
 		canvas = new Canvas();
 		Dimension s = new Dimension (800,800);
 		canvas.setPreferredSize(s);
@@ -30,7 +52,6 @@ public class GameFrame {
 		canvas.setMinimumSize(s);
 		
 		frame = new JFrame();
-		//frame.setSize(new Dimension(ge.getWidth(), ge.getHeight()));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(canvas, BorderLayout.CENTER);
@@ -47,8 +68,6 @@ public class GameFrame {
 	}
 	
 	public void update(List<Planet> planets, Player player) {
-//		System.out.println(player.calcPosX(player.getX(), player.getY(), canvas.getWidth()));
-//		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
 		
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		
@@ -62,6 +81,7 @@ public class GameFrame {
 					pr.getY()-pr.getSelfR(),
 					2*pr.getSelfR(),2*pr.getSelfR());
 		}
+		g.drawImage(img2, (int)player.getX(), (int)player.getY(), img2.getWidth(), img2.getHeight(), canvas);
 		g.setColor(Color.cyan);
 		g.fillRect(
 				(int)player.getX(),

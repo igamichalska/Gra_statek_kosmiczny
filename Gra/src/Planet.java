@@ -64,21 +64,6 @@ public class Planet{
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
-	public void paint(Graphics g) {
-        g.setColor(getColor());
-        g.fillOval(getX(), getY(), 2*getSelfR(), 2*getSelfR());
-        if (img != null && img.length > 0) {
-            g.drawImage(img[i], r*(int)Math.cos(ang), r*(int)Math.sin(ang), new ImageObserver() {
-                @Override
-                public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-                    return false;
-                }
-            });
-        }
-    }
-	
-
 	public int getMass() {
 		return mass;
 	}

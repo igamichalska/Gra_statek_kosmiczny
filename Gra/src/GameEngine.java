@@ -4,7 +4,6 @@ import java.util.List;
 
 public class GameEngine implements Runnable {
 
-	GamePanel panel;
 	private GameFrame frame;
 	
 	private Thread thread;
@@ -29,12 +28,6 @@ public class GameEngine implements Runnable {
 	List<Planet> planets = new ArrayList<Planet>();
 	List<Float> distance = new ArrayList<Float>();
 	
-	public GameEngine(GameFrame panel){
-		super();
-		//this.frame = panel;
-		
-		
-	}
 	public GameEngine(){
 		super();
 	}
@@ -43,7 +36,7 @@ public class GameEngine implements Runnable {
 		frame = new GameFrame();
 		
 		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
+		//planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
 		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
 		planets.add(new Planet(200, 30, 6.28*Math.random(), 0.008, 1, Color.green));
 		player = new Player(100,100);
@@ -69,8 +62,6 @@ public class GameEngine implements Runnable {
 		double frames = 0;
 		double fps = 0;
 		
-
-		//System.out.println(accX);
 		
 		while(running) {
 			

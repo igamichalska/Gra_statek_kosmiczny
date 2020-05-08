@@ -23,15 +23,6 @@ public class Player {
 		return Math.pow( Math.pow((this.x-p.getX()),2) + Math.pow((this.y-p.getY()),2), 0.5);
 	}
 	
-	
-//	public int calcPosX(int xs, int ys, int width) {
-//		return (int)(        );
-//		
-//	}
-//	public int calcPosY(int xs, int ys, int height) {
-//		return (int)(((getX()-xs)+height/2)*Math.sin(getAng())+((getY()-ys)+height/2)*Math.cos(getAng()));
-//	}
-	
 	public double getX() {
 		return x;
 	}
