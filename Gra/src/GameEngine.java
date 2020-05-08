@@ -38,7 +38,7 @@ public class GameEngine implements Runnable {
 	public void start() {
 		frame = new GameFrame(this);
 		
-		planets.add(new Planet(100, 20, 0, 0.004, Color.blue));
+		planets.add(new Planet(500, 20, 0, 0.004, Color.blue));
 		player = new Player();
 		thread = new Thread(this);
 		thread.run();

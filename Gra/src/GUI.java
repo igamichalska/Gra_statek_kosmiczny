@@ -52,13 +52,15 @@ public class GUI extends JFrame {
 			lewy.setPreferredSize(new Dimension(200,600));
 			lewy.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			
-			StartWindow okno = new StartWindow(this);
+			
 			startbutton = new JButton("START");
 		    startbutton.setMaximumSize(new Dimension(150,100));
 		    startbutton.addActionListener(new ActionListener() {
 		    	@Override
 		    	public void actionPerformed(ActionEvent arg0) {
+		    		StartWindow okno = new StartWindow();
 		    		okno.setVisible(true);
+		    		dispose();
 		    	}
 		    });
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -88,8 +90,8 @@ public class GUI extends JFrame {
 					lewy.add(slider);
 		this.add(lewy, BorderLayout.LINE_START);
 		
-		prawy = new GamePanel(getWidth(), getHeight());
-		engine = new GameEngine(prawy);
+		//prawy = new GamePanel(getWidth(), getHeight());
+		//engine = new GameEngine(prawy);
 		//engine.start();
 //			prawy.addPlanet(200, 300, 50, 50, 10 , 10, Color.blue); //merkury np
 //			prawy.addPlanet(500, 300, 200, 200, 0, 0, Color.yellow); //sun
@@ -99,7 +101,7 @@ public class GUI extends JFrame {
 //			exec.execute(prawy);
 //			exec.shutdown();
 //				
-		this.add(prawy, BorderLayout.CENTER);
+		//this.add(prawy, BorderLayout.CENTER);
 			gorny = new JPanel();
 			slider.setPaintTicks(true);
 			slider.setPaintLabels(true);

@@ -35,18 +35,6 @@ public class GameFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
-		//panel = new GamePanel(900, 700);
-		
-
-
-		/*ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
-		exec.execute(panel);
-		exec.shutdown();*/
-		/*this.add(panel, BorderLayout.CENTER);
-		this.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setVisible(true);*/
 		
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
@@ -60,8 +48,6 @@ public class GameFrame {
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
 			pr.paint(g);
-			//g.fillOval(pr.getX(), pr.getY(), pr.getSelfR(), pr.getSelfR());
-			g.setColor(pr.getColor());
 		}
 		bs.show();
 		
