@@ -25,8 +25,8 @@ public class ControlListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		if(arg0.getKeyCode() == KeyEvent.VK_UP) upKey =false;
-		if(arg0.getKeyCode() == KeyEvent.VK_DOWN) downKey =false;
+		if(arg0.getKeyCode() == KeyEvent.VK_UP) upKey = false;
+		if(arg0.getKeyCode() == KeyEvent.VK_DOWN) downKey = false;
 		if(arg0.getKeyCode() == KeyEvent.VK_LEFT) leftKey = false;
 		if(arg0.getKeyCode() == KeyEvent.VK_RIGHT) rightKey =false;
 

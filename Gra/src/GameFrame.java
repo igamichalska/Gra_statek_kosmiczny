@@ -3,6 +3,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -15,7 +16,7 @@ public class GameFrame {
 	
 	private JFrame frame;
 	private BufferedImage img;
-	private Graphics g;
+	private Graphics2D g;
 	private BufferStrategy bs;
 	private Canvas canvas;
 	
@@ -40,7 +41,7 @@ public class GameFrame {
 		
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
-		g = bs.getDrawGraphics();
+		g = (Graphics2D)bs.getDrawGraphics();
 		
 		
 	}
@@ -50,20 +51,30 @@ public class GameFrame {
 //		System.out.println(player.calcPosY(player.getX(), player.getY(), canvas.getHeight()));
 		
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
+		
+		
+		g.translate(canvas.getWidth()/2, canvas.getHeight()/2);
+		
 		for(Planet pr: planets) {
 			g.setColor(pr.getColor());
 			g.fillOval(
-					player.calcPosX(pr.getX(), pr.getY(), frame.getWidth()) - pr.getSelfR(),
-					player.calcPosY(pr.getX(), pr.getY(), frame.getHeight()) - pr.getSelfR(),
-					2*pr.getSelfR(),
-					2*pr.getSelfR()
-					);
+					pr.getX()-pr.getSelfR(),
+					pr.getY()-pr.getSelfR(),
+					2*pr.getSelfR(),2*pr.getSelfR());
 		}
 		g.setColor(Color.cyan);
 		g.fillRect(
-				player.calcPosX((int)player.getX(), (int)player.getY(), frame.getWidth()),
-				player.calcPosY((int)player.getX(), (int)player.getY(), frame.getWidth()),
+				(int)player.getX(),
+				(int)player.getY(),
 				10, 10);
+		g.drawLine(
+				(int)player.getX(),
+				(int)player.getY(), 
+				(int)player.getX() + (int)(40*Math.cos(player.getAng())),
+				(int)player.getY() + (int)(40*Math.sin(player.getAng())));
+		
+		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
+		
 		bs.show();
 		
 	}

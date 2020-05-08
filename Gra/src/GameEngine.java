@@ -20,7 +20,7 @@ public class GameEngine implements Runnable {
 	private final double GRAV = 1;
 	private final double ACCF = 0.1;
 	private final double ACCB = 0.5;
-	private final double ROT = 0.5;
+	private final double ROT = 0.1;
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
@@ -42,7 +42,7 @@ public class GameEngine implements Runnable {
 		frame = new GameFrame();
 		
 		planets.add(new Planet(400, 20, 0, 0.004, 10, Color.blue));
-		planets.add(new Planet(0, 50, 0, 0, 1, Color.green));
+		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
 		planets.add(new Planet(300, 20, 1, 0.004, 10, Color.blue));
 		planets.add(new Planet(200, 30, 0, 0.008, 1, Color.green));
 		player = new Player(100,100);
@@ -92,9 +92,10 @@ public class GameEngine implements Runnable {
 				
 				for (Planet pr: planets) {
 					pr.setAng(pr.getAng() + pr.getAngV());
-					accX += GRAV * pr.getMass() * (pr.getX() - player.getX()) / Math.pow(player.calcDistSqr(pr), 3);
-					accY += GRAV * pr.getMass() * (pr.getY() - player.getY()) / Math.pow(player.calcDistSqr(pr), 3);
+					accX += GRAV * pr.getMass() * (pr.getX() - player.getX()) / Math.pow(player.calcDist(pr), 3);
+					accY += GRAV * pr.getMass() * (pr.getY() - player.getY()) / Math.pow(player.calcDist(pr), 3);
 				}
+				
 				if(control.isLeftKey()) {
 					player.setAng(player.getAng() - ROT);
 				}
@@ -102,12 +103,12 @@ public class GameEngine implements Runnable {
 					player.setAng(player.getAng() + ROT);
 				}
 				if(control.isUpKey() && fuel>=0) {
-					accX += ACCF*Math.cos(player.getAng());
+					accX += ACCF* Math.cos(player.getAng());
 					accY += ACCF*Math.sin(player.getAng());
 					fuel--;
 				}
 				if(control.isDownKey()&& fuel>=0) {
-					accX -= ACCB*Math.cos(player.getAng());
+					accX -= ACCB* Math.cos(player.getAng());
 					accY -= ACCB*Math.sin(player.getAng());
 					fuel--;
 				}
@@ -116,7 +117,7 @@ public class GameEngine implements Runnable {
 				player.setaY(accY);
 				
 				player.setvX(player.getvX() + player.getaX());
-				player.setvY(player.getvX() + player.getaY());
+				player.setvY(player.getvY() + player.getaY());
 				
 				player.setX(player.getX() + player.getvX());
 				player.setY(player.getY() + player.getvY());
@@ -128,8 +129,9 @@ public class GameEngine implements Runnable {
 					frameTime = 0;
 					fps = frames;
 					frames = 0;
-					System.out.println("fuel: " + fuel);
-					System.out.println("fps: " + fps);
+					System.out.println("accx: " + accX);
+					System.out.println("accY: " + accY);
+					System.out.println("angle  : " + Math.cos(player.getAng()));
 				}
 			}
 			if(render) {
