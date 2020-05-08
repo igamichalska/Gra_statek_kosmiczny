@@ -8,8 +8,8 @@ import java.awt.image.ImageObserver;
 public class Planet implements Runnable {
 
 	private int r = 50;
-	private int ang = 0;
-	private int angV = 5;
+	private double ang = 0;
+	private double angV = 5;
     private int selfR = 20;
     private int mass;
     private Color color = Color.BLACK;
@@ -17,7 +17,7 @@ public class Planet implements Runnable {
     private int i = 0;
     private boolean running = true;
     
-	public Planet(int r, int selfR, int ang, int angV, Color c) {
+	public Planet(int r, int selfR, double ang, double angV, Color c) {
 		this.r = r;
 		this.selfR = selfR;
 		this.ang = ang;
@@ -33,22 +33,23 @@ public class Planet implements Runnable {
 		return (int) (r*Math.sin(ang));
 	}
 	
+	
 	public int getR() {
 		return r;
 	}
 	public void setR(int r) {
 		this.r = r;
 	}
-	public int getAng() {
+	public double getAng() {
 		return ang;
 	}
-	public void setAng(int ang) {
+	public void setAng(double ang) {
 		this.ang = ang;
 	}
-	public int getAngV() {
+	public double getAngV() {
 		return angV;
 	}
-	public void setAngV(int angV) {
+	public void setAngV(double angV) {
 		this.angV = angV;
 	}
 	public int getSelfR() {

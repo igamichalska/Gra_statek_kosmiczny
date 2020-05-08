@@ -59,7 +59,8 @@ public class GameFrame {
 		
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
-			g.drawOval(pr.getX(), pr.getY(), pr.getSelfR(), pr.getSelfR());
+			g.setColor(pr.getColor());
+			g.fillOval(pr.getX()-pr.getSelfR(), pr.getY()-pr.getSelfR(), 2*pr.getSelfR(), 2*pr.getSelfR());
 		}
 		bs.show();
 		
