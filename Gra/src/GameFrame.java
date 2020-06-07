@@ -57,8 +57,8 @@ public class GameFrame {
 		frame.add(canvas, BorderLayout.CENTER);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
 		frame.setVisible(true);
+		frame.setResizable(false);
 		
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();

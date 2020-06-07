@@ -36,7 +36,7 @@ public class GameEngine implements Runnable {
 		frame = new GameFrame();
 		
 		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		//planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
+		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
 		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
 		planets.add(new Planet(200, 30, 6.28*Math.random(), 0.008, 1, Color.green));
 		player = new Player(100,100);
