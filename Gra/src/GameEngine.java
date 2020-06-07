@@ -4,46 +4,49 @@ import java.util.List;
 
 public class GameEngine implements Runnable {
 
-	private GameFrame frame;
-	
+	GamePanel panel;
 	private Thread thread;
 	private boolean running;
-	private final double MAXUPDATE = 1.0/30.0;
-	
+	private final double MAXUPDATE = 1.0/60.0;
 	private Player player;
+	
 	private int fuel;
+	private boolean upKey = false;
+	private boolean downKey = false;
 	
-	
-	private ControlListener control;
-	
-	private final double GRAV = 5;
-	private final double ACCF = 0.08;
-	private final double ACCB = 0.04;
-	private final double ROT = 0.1;
+	private final int GRAV = 9;
+	private final int ACCF = 10;
+	private final int ACCB = 5;
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
+	//private GameFrame frame;
 	
 	
 	List<Planet> planets = new ArrayList<Planet>();
-	List<Float> distance = new ArrayList<Float>();
 	
+	public GameEngine(GamePanel panel){
+		super();
+		this.panel = panel;
+		
+		
+	}
 	public GameEngine(){
 		super();
 	}
 	
 	public void start() {
-		frame = new GameFrame();
+		//frame = new GameFrame(this);
 		
-		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
-		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		planets.add(new Planet(200, 30, 6.28*Math.random(), 0.008, 1, Color.green));
-		player = new Player(100,100);
+		planets.add(new Planet(0, 50, 0, 0, Color.green));
+		planets.add(new Planet(100, 20, 0, 0.004, Color.blue));
+		planets.add(new Planet(200, 60, 50, 0.02, Color.green));
+		player = new Player();
+		
 		thread = new Thread(this);
-		control = new ControlListener(this);
 		thread.start();
 	}
+	
 	
 	public void run() {
 
@@ -62,7 +65,6 @@ public class GameEngine implements Runnable {
 		double frames = 0;
 		double fps = 0;
 		
-		
 		while(running) {
 			
 			render = false;
@@ -73,84 +75,58 @@ public class GameEngine implements Runnable {
 			unprocessedTime += passedTime;
 			frameTime += passedTime;
 			
-			
 			while(unprocessedTime >= MAXUPDATE) {
 				unprocessedTime -= MAXUPDATE;
 				
-				accX = 0;
-				accY = 0;
-				distance.clear();
-				
 				for (Planet pr: planets) {
-					distance.add((float) player.calcDist(pr));
 					pr.setAng(pr.getAng() + pr.getAngV());
-					accX += GRAV * pr.getMass() * (pr.getX() - player.getX()) / Math.pow(player.calcDist(pr), 3);
-					accY += GRAV * pr.getMass() * (pr.getY() - player.getY()) / Math.pow(player.calcDist(pr), 3);
+					accX += GRAV*pr.getMass()*(pr.getX()-player.getX())/Math.pow(player.calcDistSqr(pr), 3);
+					accX += GRAV*pr.getMass()*(pr.getY()-player.getY())/Math.pow(player.calcDistSqr(pr), 3);
 				}
 				
-				if(control.isLeftKey()) {
-					player.setAng(player.getAng() - ROT);
-				}
-				if(control.isRightKey()) {
-					player.setAng(player.getAng() + ROT);
-				}
-				if(control.isUpKey() && fuel>=0) {
-					accX += ACCF* Math.cos(player.getAng());
+				if(upKey) {
+					accX += ACCF*Math.cos(player.getAng());
 					accY += ACCF*Math.sin(player.getAng());
 					fuel--;
 				}
-				if(control.isDownKey()&& fuel>=0) {
-					accX -= ACCB* Math.cos(player.getAng());
+				if(downKey) {
+					accX -= ACCB*Math.cos(player.getAng());
 					accY -= ACCB*Math.sin(player.getAng());
 					fuel--;
 				}
 				
-				player.setaX(accX);
-				player.setaY(accY);
+				player.setaX((int)accX);
+				player.setaY((int)accY);
 				
 				player.setvX(player.getvX() + player.getaX());
-				player.setvY(player.getvY() + player.getaY());
+				player.setvY(player.getvX() + player.getaY());
 				
 				player.setX(player.getX() + player.getvX());
 				player.setY(player.getY() + player.getvY());
 				
-				
-				for (int i=0; i<planets.size(); i++) 
-				{	
-					Planet p = planets.get(i);
-					
-					if(player.calcDist(p)<= p.getSelfR()) 
-					{	
-						if((player.calcDist(p) - distance.get(i)) >=0.01) {
-							
-							System.out.println("ZDERZENIEE");
-							
-						} else {
-							System.out.println("WYL¥DOWAL");
-						}
-						running = false;
-						
-					}
-							
-						
-				}
-				
-				
 				render = true;
+				
 				frames ++;
 				if(frameTime >= 1.0) {
 					frameTime = 0;
 					fps = frames;
 					frames = 0;
-					System.out.println("accx: " + accX);
-					System.out.println("accY: " + accY);
-					System.out.println("angle  : " + Math.cos(player.getAng()));
+					System.out.println("fps: " + fps);
 				}
 			}
-		
-		
 			if(render) {
-				frame.update(planets, player);
+				panel.update(planets);
+			
+				//panel.repaint();			
+				//panel.display(planets);
+
+				
+				//System.out.println("render");
+				//
+				// 			panel.display(planets)
+				//
+
+				
 			} else {
 				try {
 					Thread.sleep(1);
@@ -178,11 +154,18 @@ public class GameEngine implements Runnable {
 		this.running = running;
 	}
 
-	
-	public static void main(String[] args) {
-		GameEngine game = new GameEngine();
-		game.start();
+	public void setUpKey(boolean upKey) {
+		this.upKey = upKey;
 	}
+
+	public void setDownKey(boolean downKey) {
+		this.downKey = downKey;
+	}
+	
+//	public static void main(String[] args) {
+//		GameEngine game = new GameEngine();
+//		game.start();
+//	}
 	public int getWidth() {
 		return width;
 	}
@@ -200,8 +183,5 @@ public class GameEngine implements Runnable {
 	}
 	public void setScale(float scale) {
 		this.scale = scale;
-	}
-	public GameFrame getFrame() {
-		return frame;
 	}
 }

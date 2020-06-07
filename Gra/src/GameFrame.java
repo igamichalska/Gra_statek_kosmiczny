@@ -1,107 +1,70 @@
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameFrame {
 	
+	//GamePanel panel;
 	private JFrame frame;
-	private BufferedImage img, img2;
-	private Graphics2D g;
+	private BufferedImage img;
+	private Graphics g;
 	private BufferStrategy bs;
 	private Canvas canvas;
-	String a;
-	URL sciezka;
 	
-	public GameFrame(){
+	public GameFrame(GameEngine ge){
 		
-		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
-		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
-		if (StartWindow.cmd == "Czerwony") {
-			a =  "pic_red.png";
-			}
-		else if(StartWindow.cmd == "Niebieski") {
-				a =  "pic_blue.png";
-			}
-		else if(StartWindow.cmd == "Szary") {
-				a =  "pic_grey.png";
-			}
-		sciezka = getClass().getResource(a);
-		if (sciezka != null) {
-            try {
-                img2 = ImageIO.read(sciezka);
-            } catch (IOException e) {
-            	System.out.println(e.getMessage());
-            }
-		}
-		
+		img = new BufferedImage(ge.getWidth(), ge.getHeight(), BufferedImage.TYPE_INT_RGB);
 		canvas = new Canvas();
-		Dimension s = new Dimension (800,800);
+		Dimension s = new Dimension ((int)(ge.getWidth()*ge.getScale()),(int)(ge.getHeight() * ge.getScale()));
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
 		
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//frame.setSize(new Dimension(ge.getWidth(), ge.getHeight()));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(canvas, BorderLayout.CENTER);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 		frame.setResizable(false);
+		frame.setVisible(true);
+		//panel = new GamePanel(900, 700);
+		
+
+//		JPanel panel = new JPanel();
+//		frame.add(panel);
+		/*ExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+		exec.execute(panel);
+		exec.shutdown();*/
+		/*this.add(panel, BorderLayout.CENTER);
+		this.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setVisible(true);*/
 		
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
-		g = (Graphics2D)bs.getDrawGraphics();
+		g = bs.getDrawGraphics();
 		
 		
 	}
 	
-	public void update(List<Planet> planets, Player player) {
+	public void update(List<Planet> planets) {
 		
-		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
-		
-		
-		g.translate(canvas.getWidth()/2, canvas.getHeight()/2);
-		
+		//g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		for(Planet pr: planets) {
 			g.setColor(pr.getColor());
-			g.fillOval(
-					pr.getX()-pr.getSelfR(),
-					pr.getY()-pr.getSelfR(),
-					2*pr.getSelfR(),2*pr.getSelfR());
+			g.fillOval(pr.getX()-pr.getSelfR(), pr.getY()-pr.getSelfR(), 2*pr.getSelfR(), 2*pr.getSelfR());
 		}
-		g.drawImage(img2, (int)player.getX(), (int)player.getY(), img2.getWidth(), img2.getHeight(), canvas);
-		g.setColor(Color.cyan);
-		g.fillRect(
-				(int)player.getX(),
-				(int)player.getY(),
-				10, 10);
-		g.drawLine(
-				(int)player.getX(),
-				(int)player.getY(), 
-				(int)player.getX() + (int)(40*Math.cos(player.getAng())),
-				(int)player.getY() + (int)(40*Math.sin(player.getAng())));
-		
-		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
-		
 		bs.show();
 		
-	}
-	public BufferedImage getImg() {
-		return img;
-	}
-	public Canvas getCanvas() {
-		return canvas;
 	}
 }

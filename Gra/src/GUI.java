@@ -1,16 +1,17 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,9 +25,12 @@ import javax.swing.JTextField;
 
 public class GUI extends JFrame {
 
-	JPanel lewy, gorny;
-	ImagePanel prawy;
+	JPanel lewy;
+
+	GamePanel prawy;
+
 	GameEngine engine;
+
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
 	JTextField szybkosc;
@@ -37,27 +41,25 @@ public class GUI extends JFrame {
 	
 	public GUI() throws HeadlessException {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			this.setSize(950,850);
+			this.setSize(895,650);
 				this.setTitle("Kosmiczne Podró¿e");
 		lewy = new JPanel();
 			lewy.setLayout(new BoxLayout(lewy, 3));
-			
-			this.setTitle("Kosmiczne Podró¿e");
 			lewy = new JPanel();
 			lewy.setLayout(new BoxLayout(lewy, BoxLayout.PAGE_AXIS));
 			lewy.setPreferredSize(new Dimension(200,600));
 			lewy.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			
-			
+			StartWindow okno = new StartWindow(this);
 			startbutton = new JButton("START");
 		    startbutton.setMaximumSize(new Dimension(150,100));
 		    startbutton.addActionListener(new ActionListener() {
 		    	@Override
 		    	public void actionPerformed(ActionEvent arg0) {
-		    		StartWindow okno = new StartWindow();
 		    		okno.setVisible(true);
 		    	}
 		    });
+		    
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lewy.add(startbutton);
 			
@@ -78,26 +80,19 @@ public class GUI extends JFrame {
 			lewy.add(labelpaliwo);
 			
 			slider = new JSlider(JSlider.VERTICAL, 0, 100, 20);
-				slider.setPaintTicks(true);
-				slider.setPaintLabels(true);
-				slider.setMinorTickSpacing(5);
-				slider.setMajorTickSpacing(10);
-					lewy.add(slider);
-		this.add(lewy, BorderLayout.LINE_START);
-		
-		prawy = new ImagePanel(new ImageIcon("pic.png").getImage());
-				
-		this.add(prawy, BorderLayout.CENTER);
-		
 			slider.setPaintTicks(true);
 			slider.setPaintLabels(true);
 			slider.setMinorTickSpacing(5);
 			slider.setMajorTickSpacing(10);
 			slider.setMaximumSize(new Dimension(150,200));
 			slider.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
 			lewy.add(slider);
 			this.add(lewy, BorderLayout.LINE_START);
+		
+		prawy = new GamePanel(getWidth(), getHeight());
+		engine = new GameEngine(prawy);
+		this.add(prawy, BorderLayout.CENTER);
+			
 			
 			menubar = new JMenuBar();
 			autor = new JMenu ("Autor");
@@ -109,34 +104,13 @@ public class GUI extends JFrame {
 			this.pack();
 			this.setResizable(false);
 	}
-	class ImagePanel extends JPanel {
-
-		  private Image img;
-
-		  public ImagePanel(String img) {
-		    this(new ImageIcon(img).getImage());
-		  }
-
-		  public ImagePanel(Image img) {
-		    this.img = img;
-		    Dimension size = new Dimension(800, 600);
-		    setPreferredSize(size);
-		    setMinimumSize(size);
-		    setMaximumSize(size);
-		    setSize(size);
-		    setLayout(null);
-		  }
-
-		  public void paintComponent(Graphics g) {
-		    g.drawImage(img, 0, 0, null);
-		  }
-	}
 	ActionListener autorListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			JOptionPane.showMessageDialog(null, "Iga Michalska, Jan £oziñski");
 		}
 	};
+	
 
 	public static void main(String[] args) {
 		GUI frame = new GUI();
