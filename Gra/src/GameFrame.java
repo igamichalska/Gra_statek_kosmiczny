@@ -27,7 +27,6 @@ public class GameFrame implements WindowListener{
 	
 	public GameFrame(){
 		
-		
 		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
 		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 		if (StartWindow.cmd == "Czerwony") {
@@ -53,7 +52,7 @@ public class GameFrame implements WindowListener{
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
-		
+
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -63,7 +62,7 @@ public class GameFrame implements WindowListener{
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.addWindowListener(this);
-		
+
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
 		g = (Graphics2D)bs.getDrawGraphics();
@@ -113,17 +112,15 @@ public class GameFrame implements WindowListener{
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
-
-	
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		
-		//System.out.println("proba");
 		GameEngine.running = false;
+		StartWindow.cmd="Czerwony";
 	}
 
 	@Override
@@ -146,13 +143,17 @@ public class GameFrame implements WindowListener{
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void dispose() {
+		frame.dispose();
 		
 	}
 }

@@ -1,8 +1,5 @@
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
+
 
 
 public class Planet{
@@ -13,8 +10,7 @@ public class Planet{
     private int selfR = 20;
     private int mass;
     private Color color = Color.BLACK;
-    private BufferedImage[] img = null;
-    private int i = 0;
+   
     
 	public Planet(int r, int selfR, double ang, double angV, int mass, Color c) {
 		this.r = r;
