@@ -20,7 +20,7 @@ public class GameEngine implements Runnable {
 	private final double GRAV = 5;
 	private final double ACCF = 0.08;
 	private final double ACCB = 0.04;
-	private final double ROT = 0.1;
+	private final double ROT = 2;
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
@@ -98,13 +98,13 @@ public class GameEngine implements Runnable {
 					player.setAng(player.getAng() + ROT);
 				}
 				if(control.isUpKey() && fuel>=0) {
-					accX += ACCF* Math.cos(player.getAng());
-					accY += ACCF*Math.sin(player.getAng());
+					accX += ACCF* Math.cos(Math.toRadians(player.getAng()));
+					accY += ACCF*Math.sin(Math.toRadians(player.getAng()));
 					fuel--;
 				}
 				if(control.isDownKey()&& fuel>=0) {
-					accX -= ACCB* Math.cos(player.getAng());
-					accY -= ACCB*Math.sin(player.getAng());
+					accX -= ACCB* Math.cos(Math.toRadians(player.getAng()));
+					accY -= ACCB*Math.sin(Math.toRadians(player.getAng()));
 					fuel--;
 				}
 				
