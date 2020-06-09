@@ -27,7 +27,7 @@ public class GameFrame implements WindowListener{
 	
 	public GameFrame(){
 		
-		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
+		img = new BufferedImage(1400, 880, BufferedImage.TYPE_INT_RGB);
 		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 		if (StartWindow.cmd == "Czerwony") {
 				a =  "pic_red.png";
@@ -48,7 +48,7 @@ public class GameFrame implements WindowListener{
 		}
 		
 		canvas = new Canvas();
-		Dimension s = new Dimension (800,800);
+		Dimension s = new Dimension (1400, 880);
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
@@ -107,7 +107,7 @@ public class GameFrame implements WindowListener{
 		
 		g.translate((int)player.getX(), (int)player.getY());
 		
-		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
+		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -65, 380);
 		
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
 		

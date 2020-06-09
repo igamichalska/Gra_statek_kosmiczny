@@ -50,17 +50,10 @@ public class GUI extends JFrame {
 		}
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//this.setSize(950,850);
 		this.setTitle("Kosmiczne Podró¿e");
 		mainP = new JPanel();
 		mainP.setLayout(new BoxLayout(mainP, BoxLayout.PAGE_AXIS));
-//			lewy = new JPanel();
-//			lewy.setLayout(new BoxLayout(lewy, 3));
-			
-//			this.setTitle("Kosmiczne Podró¿e");
-//			lewy = new JPanel();
-//			lewy.setLayout(new BoxLayout(lewy, BoxLayout.PAGE_AXIS));
-//			lewy.setPreferredSize(new Dimension(200,600));
+
 			mainP.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			
 			central = new ImagePanel(new ImageIcon(pic).getImage());
@@ -78,49 +71,12 @@ public class GUI extends JFrame {
 		    		dispose();
 		    	}
 		    });
-//		    startbutton.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		    mainP.add(Box.createRigidArea(new Dimension(20,20)));
 		    startbutton.setMinimumSize(new Dimension(300,100));
 		    startbutton.setPreferredSize(new Dimension(300,100));
 		    startbutton.setMaximumSize(new Dimension(300,100));
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			mainP.add(startbutton);
-			
-//			lewy.add(Box.createRigidArea(new Dimension(0,150)));
-//			
-//			labelszybkosc = new JLabel("Szybkoœæ:");
-//			labelszybkosc.setAlignmentX(Component.CENTER_ALIGNMENT);
-//			lewy.add(labelszybkosc);
-//			
-//			szybkosc = new JTextField();
-//			szybkosc.setMaximumSize(new Dimension(100,40));
-//			szybkosc.setAlignmentX(Component.CENTER_ALIGNMENT);
-//			lewy.add(szybkosc);
-//			lewy.add(Box.createRigidArea(new Dimension(0,20)));
-//			
-//			labelpaliwo = new JLabel("Poziom paliwa:");
-//			labelpaliwo.setAlignmentX(Component.CENTER_ALIGNMENT);
-//			lewy.add(labelpaliwo);
-//			
-//			slider = new JSlider(JSlider.VERTICAL, 0, 100, 20);
-//				slider.setPaintTicks(true);
-//				slider.setPaintLabels(true);
-//				slider.setMinorTickSpacing(5);
-//				slider.setMajorTickSpacing(10);
-//					lewy.add(slider);
-//		this.add(lewy, BorderLayout.LINE_START);
-		
-		
-		
-//			slider.setPaintTicks(true);
-//			slider.setPaintLabels(true);
-//			slider.setMinorTickSpacing(5);
-//			slider.setMajorTickSpacing(10);
-//			slider.setMaximumSize(new Dimension(150,200));
-//			slider.setAlignmentX(Component.CENTER_ALIGNMENT);
-//			
-//			lewy.add(slider);
-//			this.add(lewy, BorderLayout.LINE_START);
 			
 		this.add(mainP);
 		
@@ -132,7 +88,6 @@ public class GUI extends JFrame {
 			menubar.add(autor);
 		this.setJMenuBar(menubar);
 		this.pack();
-		//this.setResizable(false);
 	}
 	
 	class ImagePanel extends JPanel {
