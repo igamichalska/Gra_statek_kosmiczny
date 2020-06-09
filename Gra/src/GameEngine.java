@@ -6,13 +6,14 @@ public class GameEngine implements Runnable {
 
 	private GameFrame frame;
 	
-	private Thread thread;
-	private boolean running;
+	private static Thread thread;
+	static boolean running;
 	private final double MAXUPDATE = 1.0/30.0;
-	
+	public static boolean zakoncz=false;
 	private Player player;
-	private int fuel;
-	
+	private float fuel;
+	private float maxfuel = 400;
+	public static float paliwo;
 	
 	private ControlListener control;
 	
@@ -33,22 +34,23 @@ public class GameEngine implements Runnable {
 	}
 	
 	public void start() {
+		
 		frame = new GameFrame();
 		
 		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		//planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
+		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
 		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
 		planets.add(new Planet(200, 30, 6.28*Math.random(), 0.008, 1, Color.green));
 		player = new Player(100,100);
 		thread = new Thread(this);
 		control = new ControlListener(this);
 		thread.start();
-	}
+		}
 	
 	public void run() {
 
 		running = true;
-		fuel = 400;
+		fuel = maxfuel;
 		boolean render = false;
 		
 		double firstTime = 0;
@@ -65,6 +67,7 @@ public class GameEngine implements Runnable {
 		
 		while(running) {
 			
+			paliwo = (getFuel()/maxfuel) *100;
 			render = false;
 			firstTime = System.nanoTime() / 1000000000.0;
 			passedTime = firstTime - lastTime;
@@ -143,6 +146,7 @@ public class GameEngine implements Runnable {
 					System.out.println("accx: " + accX);
 					System.out.println("accY: " + accY);
 					System.out.println("angle  : " + Math.cos(player.getAng()));
+					System.out.println("fuel: " + fuel);
 				}
 			}
 		
@@ -162,13 +166,12 @@ public class GameEngine implements Runnable {
 		dispose();
 	}
 
-
 	private void dispose() {
 		// TODO Dispose actions
 		
 	}
 
-	public int getFuel() {
+	public float getFuel() {
 		return fuel;
 	}
 
