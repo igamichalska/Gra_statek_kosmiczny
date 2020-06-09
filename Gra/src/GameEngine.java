@@ -22,7 +22,7 @@ public class GameEngine implements Runnable {
 	private final double GRAV = 2;
 	private final double ACCF = 0.08;
 	private final double ACCB = 0.04;
-	private final double ROT = 2;
+	private final double ROT = 0.9;
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
@@ -57,9 +57,16 @@ public class GameEngine implements Runnable {
 			break;
 		}
 		System.out.println(maxFuel);
-		planets.add(new Planet(0,40,6.28*Math.random(),0,80,Color.orange)); //slonce
-		planets.add(new Planet(150,20,6.28*Math.random(),0.004,80,Color.red)); //merkury
-		planets.add(new Planet(300,20,6.28*Math.random(),0.004,80,Color.lightGray)); //wenus
+		planets.add(new Planet(0,100,6.28*Math.random(),0,100,Color.orange)); //slonce
+		planets.add(new Planet(250,10,6.28*Math.random(),0.009,10,Color.red)); //merkury
+		planets.add(new Planet(400, 35,6.28*Math.random(),0.0075, 80,Color.lightGray)); //wenus
+		planets.add(new Planet(600, 40, 6.28*Math.random(),0.0045, 100, Color.blue)); //ziemia
+		planets.add(new Planet(850, 20, 6.28*Math.random(),0.0045, 20, Color.red)); //mars
+		planets.add(new Planet(1600, 300, 6.28*Math.random(),0.003, 900 ,Color.white)); //jowisz
+		planets.add(new Planet(2200, 200, 6.28*Math.random(),0.002, 300,Color.gray)); //saturn
+		planets.add(new Planet(2900, 100, 6.28*Math.random(),0.002, 150,Color.cyan)); //uran
+		planets.add(new Planet(3200, 90, 6.28*Math.random(),0.002, 200,Color.blue)); //neptun
+		
 		player = new Player(200,200);
 		
 		thread = new Thread(this);
@@ -156,7 +163,7 @@ public class GameEngine implements Runnable {
 							gui.setVisible(true);
 							
 						} else {
-							System.out.println("WYL�DOWAL");
+							System.out.println("WYLADOWAL");
 							frame.dispose();
 							
 							GUI gui = new GUI("wygrana.png");
