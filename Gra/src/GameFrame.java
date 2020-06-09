@@ -77,26 +77,32 @@ public class GameFrame implements WindowListener{
 		
 		
 		g.translate(canvas.getWidth()/2, canvas.getHeight()/2);
+		g.translate(-(int)player.getX(), -(int)player.getY());
+		g.rotate(-Math.toRadians(player.getAng()+90), player.getX(), player.getY());
 		
-		for(Planet pr: planets) {
-			g.setColor(pr.getColor());
-			g.fillOval(
-					pr.getX()-pr.getSelfR(),
-					pr.getY()-pr.getSelfR(),
-					2*pr.getSelfR(),2*pr.getSelfR());
+			for(Planet pr: planets) {
+				g.setColor(Color.gray); g.drawOval(-pr.getR(), -pr.getR(), 2*pr.getR(), 2*pr.getR());
+				g.setColor(pr.getColor());
+				g.fillOval(
+						pr.getX()-pr.getSelfR(),
+						pr.getY()-pr.getSelfR(),
+						2*pr.getSelfR(),2*pr.getSelfR());
+				
+			}
+			g.setColor(Color.cyan);
+			g.fillRect(
+					(int)player.getX(),
+					(int)player.getY(),
+					10, 10);
+			g.drawLine(
+					(int)player.getX(),
+					(int)player.getY(), 
+					(int)player.getX() + (int)(40*Math.cos(Math.toRadians(player.getAng()))),
+					(int)player.getY() + (int)(40*Math.sin(Math.toRadians(player.getAng()))));
 			
-		}
-		g.drawImage(img2, (int)player.getX(), (int)player.getY(), img2.getWidth(), img2.getHeight(), canvas);
-		g.setColor(Color.cyan);
-		g.fillRect(
-				(int)player.getX(),
-				(int)player.getY(),
-				10, 10);
-		g.drawLine(
-				(int)player.getX(),
-				(int)player.getY(), 
-				(int)player.getX() + (int)(40*Math.cos(player.getAng())),
-				(int)player.getY() + (int)(40*Math.sin(player.getAng())));
+			
+		g.rotate(Math.toRadians(player.getAng()+90),player.getX(), player.getY());
+		g.translate((int)player.getX(), (int)player.getY());
 		
 		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
