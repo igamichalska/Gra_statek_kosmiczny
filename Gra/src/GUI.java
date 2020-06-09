@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -21,11 +20,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class GUI extends JFrame {
 
-	JPanel lewy, gorny;
-	ImagePanel prawy;
+	JPanel mainP;
+	ImagePanel central;
 	GameEngine engine;
 	JLabel labelszybkosc, labelpaliwo;
 	JButton startbutton;
@@ -37,20 +38,36 @@ public class GUI extends JFrame {
 	
 	public GUI(String pic) throws HeadlessException {
 		
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			this.setSize(950,850);
-				this.setTitle("Kosmiczne Podró¿e");
-		lewy = new JPanel();
-			lewy.setLayout(new BoxLayout(lewy, 3));
+		//this.setSize(950,850);
+		this.setTitle("Kosmiczne Podró¿e");
+		mainP = new JPanel();
+		mainP.setLayout(new BoxLayout(mainP, BoxLayout.PAGE_AXIS));
+//			lewy = new JPanel();
+//			lewy.setLayout(new BoxLayout(lewy, 3));
 			
-			this.setTitle("Kosmiczne Podró¿e");
-			lewy = new JPanel();
-			lewy.setLayout(new BoxLayout(lewy, BoxLayout.PAGE_AXIS));
-			lewy.setPreferredSize(new Dimension(200,600));
-			lewy.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+//			this.setTitle("Kosmiczne Podró¿e");
+//			lewy = new JPanel();
+//			lewy.setLayout(new BoxLayout(lewy, BoxLayout.PAGE_AXIS));
+//			lewy.setPreferredSize(new Dimension(200,600));
+			mainP.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			
+			central = new ImagePanel(new ImageIcon(pic).getImage());
+			central.setAlignmentX(Component.CENTER_ALIGNMENT);
+			mainP.add(central);
 			
-			startbutton = new JButton("START");
+			startbutton = new JButton("NOWA GRA");
 		    startbutton.setMaximumSize(new Dimension(150,100));
 		    startbutton.addActionListener(new ActionListener() {
 		    	@Override
@@ -61,57 +78,63 @@ public class GUI extends JFrame {
 		    		dispose();
 		    	}
 		    });
+//		    startbutton.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+		    mainP.add(Box.createRigidArea(new Dimension(20,20)));
+		    startbutton.setMinimumSize(new Dimension(300,100));
+		    startbutton.setPreferredSize(new Dimension(300,100));
+		    startbutton.setMaximumSize(new Dimension(300,100));
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lewy.add(startbutton);
+			mainP.add(startbutton);
 			
-			lewy.add(Box.createRigidArea(new Dimension(0,150)));
-			
-			labelszybkosc = new JLabel("Szybkoœæ:");
-			labelszybkosc.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lewy.add(labelszybkosc);
-			
-			szybkosc = new JTextField();
-			szybkosc.setMaximumSize(new Dimension(100,40));
-			szybkosc.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lewy.add(szybkosc);
-			lewy.add(Box.createRigidArea(new Dimension(0,20)));
-			
-			labelpaliwo = new JLabel("Poziom paliwa:");
-			labelpaliwo.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lewy.add(labelpaliwo);
-			
-			slider = new JSlider(JSlider.VERTICAL, 0, 100, 20);
-				slider.setPaintTicks(true);
-				slider.setPaintLabels(true);
-				slider.setMinorTickSpacing(5);
-				slider.setMajorTickSpacing(10);
-					lewy.add(slider);
-		this.add(lewy, BorderLayout.LINE_START);
+//			lewy.add(Box.createRigidArea(new Dimension(0,150)));
+//			
+//			labelszybkosc = new JLabel("Szybkoœæ:");
+//			labelszybkosc.setAlignmentX(Component.CENTER_ALIGNMENT);
+//			lewy.add(labelszybkosc);
+//			
+//			szybkosc = new JTextField();
+//			szybkosc.setMaximumSize(new Dimension(100,40));
+//			szybkosc.setAlignmentX(Component.CENTER_ALIGNMENT);
+//			lewy.add(szybkosc);
+//			lewy.add(Box.createRigidArea(new Dimension(0,20)));
+//			
+//			labelpaliwo = new JLabel("Poziom paliwa:");
+//			labelpaliwo.setAlignmentX(Component.CENTER_ALIGNMENT);
+//			lewy.add(labelpaliwo);
+//			
+//			slider = new JSlider(JSlider.VERTICAL, 0, 100, 20);
+//				slider.setPaintTicks(true);
+//				slider.setPaintLabels(true);
+//				slider.setMinorTickSpacing(5);
+//				slider.setMajorTickSpacing(10);
+//					lewy.add(slider);
+//		this.add(lewy, BorderLayout.LINE_START);
 		
-		prawy = new ImagePanel(new ImageIcon(pic).getImage());
-				
-		this.add(prawy, BorderLayout.CENTER);
 		
-			slider.setPaintTicks(true);
-			slider.setPaintLabels(true);
-			slider.setMinorTickSpacing(5);
-			slider.setMajorTickSpacing(10);
-			slider.setMaximumSize(new Dimension(150,200));
-			slider.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+//			slider.setPaintTicks(true);
+//			slider.setPaintLabels(true);
+//			slider.setMinorTickSpacing(5);
+//			slider.setMajorTickSpacing(10);
+//			slider.setMaximumSize(new Dimension(150,200));
+//			slider.setAlignmentX(Component.CENTER_ALIGNMENT);
+//			
+//			lewy.add(slider);
+//			this.add(lewy, BorderLayout.LINE_START);
 			
-			lewy.add(slider);
-			this.add(lewy, BorderLayout.LINE_START);
-			
+		this.add(mainP);
+		
 			menubar = new JMenuBar();
 			autor = new JMenu ("Autor");
 			wyswietl = new JMenuItem ("Wyœwietl informacje");
 			wyswietl.addActionListener(autorListener);
 			autor.add(wyswietl);
 			menubar.add(autor);
-			this.setJMenuBar(menubar);
-			this.pack();
-			this.setResizable(false);
+		this.setJMenuBar(menubar);
+		this.pack();
+		//this.setResizable(false);
 	}
+	
 	class ImagePanel extends JPanel {
 
 		  private Image img;
@@ -122,7 +145,7 @@ public class GUI extends JFrame {
 
 		  public ImagePanel(Image img) {
 		    this.img = img;
-		    Dimension size = new Dimension(800, 600);
+		    Dimension size = new Dimension(755, 560);
 		    setPreferredSize(size);
 		    setMinimumSize(size);
 		    setMaximumSize(size);
