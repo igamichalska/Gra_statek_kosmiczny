@@ -30,7 +30,7 @@ public class GameFrame implements WindowListener{
 		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
 		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 		if (StartWindow.cmd == "Czerwony") {
-			a =  "pic_red.png";
+				a =  "pic_red.png";
 			}
 		else if(StartWindow.cmd == "Niebieski") {
 				a =  "pic_blue.png";
@@ -103,11 +103,12 @@ public class GameFrame implements WindowListener{
 		g.rotate(Math.toRadians(player.getAng()+90),player.getX(), player.getY());
 		
 		
-		//TUTAJ WKLEJ OBRAZEK STATKU
+		g.drawImage(img2, (int)player.getX() - img2.getWidth()/2, (int)player.getY() - img2.getHeight()/2, img2.getWidth(), img2.getHeight(), canvas);
 		
 		g.translate((int)player.getX(), (int)player.getY());
 		
 		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
+		
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
 		
 		bs.show();
