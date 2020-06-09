@@ -57,8 +57,10 @@ public class GameEngine implements Runnable {
 			break;
 		}
 		System.out.println(maxFuel);
-		planets.add(new Planet(0,40,6.28*Math.random(),0,80,Color.orange));
-		player = new Player(100,100);
+		planets.add(new Planet(0,40,6.28*Math.random(),0,80,Color.orange)); //slonce
+		planets.add(new Planet(150,20,6.28*Math.random(),0.004,80,Color.red)); //merkury
+		planets.add(new Planet(300,20,6.28*Math.random(),0.004,80,Color.lightGray)); //wenus
+		player = new Player(200,200);
 		
 		thread = new Thread(this);
 		control = new ControlListener(this);
