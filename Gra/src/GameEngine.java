@@ -131,8 +131,6 @@ public class GameEngine implements Runnable {
 						running = false;
 						
 					}
-							
-						
 				}
 				
 				

@@ -71,7 +71,7 @@ public class GameFrame {
 		
 		g.drawImage(img, 0, 0, canvas.getWidth(),canvas.getHeight(), null);
 		
-		
+		//g.push();
 		g.translate(canvas.getWidth()/2, canvas.getHeight()/2);
 		
 		for(Planet pr: planets) {
@@ -81,7 +81,6 @@ public class GameFrame {
 					pr.getY()-pr.getSelfR(),
 					2*pr.getSelfR(),2*pr.getSelfR());
 		}
-		g.drawImage(img2, (int)player.getX(), (int)player.getY(), img2.getWidth(), img2.getHeight(), canvas);
 		g.setColor(Color.cyan);
 		g.fillRect(
 				(int)player.getX(),
