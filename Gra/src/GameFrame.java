@@ -107,7 +107,7 @@ public class GameFrame implements WindowListener{
 		
 		g.translate((int)player.getX(), (int)player.getY());
 		
-		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
+		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -65, 380);
 		
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
 		
