@@ -21,8 +21,8 @@ public class GameFrame implements WindowListener{
 	private Graphics2D g;
 	private BufferStrategy bs;
 	private Canvas canvas;
-	String a;
-	URL sciezka;
+	String file;
+	URL url;
 	
 	
 	public GameFrame(){
@@ -30,18 +30,18 @@ public class GameFrame implements WindowListener{
 		img = new BufferedImage(1400, 880, BufferedImage.TYPE_INT_RGB);
 		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 		if (StartWindow.cmd == "Czerwony") {
-				a =  "pic_red.png";
+				file =  "pic_red.png";
 			}
 		else if(StartWindow.cmd == "Niebieski") {
-				a =  "pic_blue.png";
+				file =  "pic_blue.png";
 			}
 		else if(StartWindow.cmd == "Szary") {
-				a =  "pic_grey.png";
+				file =  "pic_grey.png";
 			}
-		sciezka = getClass().getResource(a);
-		if (sciezka != null) {
+		url = getClass().getResource(file);
+		if (url != null) {
             try {
-                img2 = ImageIO.read(sciezka);
+                img2 = ImageIO.read(url);
             } catch (IOException e) {
             	System.out.println(e.getMessage());
             }
@@ -107,7 +107,7 @@ public class GameFrame implements WindowListener{
 		
 		g.translate((int)player.getX(), (int)player.getY());
 		
-		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -65, 380);
+		g.drawString("paliwo: " + GameEngine.fuelRate + "%", -65, 380);
 		
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
 		

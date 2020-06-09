@@ -25,16 +25,13 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 public class GUI extends JFrame {
 
-	JPanel mainP;
+	JPanel mainPanel;
 	ImagePanel central;
 	GameEngine engine;
-	JLabel labelszybkosc, labelpaliwo;
-	JButton startbutton;
-	JTextField szybkosc;
-	JSlider slider;
-	JMenuBar menubar;
-	JMenu autor;
-	JMenuItem wyswietl;
+	JButton startButton;
+	JMenuBar menuBar;
+	JMenu author;
+	JMenuItem show;
 	
 	public GUI(String pic) throws HeadlessException {
 		
@@ -51,18 +48,18 @@ public class GUI extends JFrame {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Kosmiczne Podró¿e");
-		mainP = new JPanel();
-		mainP.setLayout(new BoxLayout(mainP, BoxLayout.PAGE_AXIS));
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 
-			mainP.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+			mainPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			
 			central = new ImagePanel(new ImageIcon(pic).getImage());
 			central.setAlignmentX(Component.CENTER_ALIGNMENT);
-			mainP.add(central);
+			mainPanel.add(central);
 			
-			startbutton = new JButton("NOWA GRA");
-		    startbutton.setMaximumSize(new Dimension(150,100));
-		    startbutton.addActionListener(new ActionListener() {
+			startButton = new JButton("NOWA GRA");
+		    startButton.setMaximumSize(new Dimension(150,100));
+		    startButton.addActionListener(new ActionListener() {
 		    	@Override
 		    	public void actionPerformed(ActionEvent arg0) {
 		    		StartWindow okno = new StartWindow();
@@ -71,22 +68,26 @@ public class GUI extends JFrame {
 		    		dispose();
 		    	}
 		    });
-		    mainP.add(Box.createRigidArea(new Dimension(20,20)));
-		    startbutton.setMinimumSize(new Dimension(300,100));
-		    startbutton.setPreferredSize(new Dimension(300,100));
-		    startbutton.setMaximumSize(new Dimension(300,100));
-			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
-			mainP.add(startbutton);
+		    
+		    mainPanel.add(Box.createRigidArea(new Dimension(20,20)));
+		    
+		    startButton.setMinimumSize(new Dimension(300,100));
+		    startButton.setPreferredSize(new Dimension(300,100));
+		    startButton.setMaximumSize(new Dimension(300,100));
+			startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
-		this.add(mainP);
+			mainPanel.add(startButton);
+			
+		this.add(mainPanel);
 		
-			menubar = new JMenuBar();
-			autor = new JMenu ("Autor");
-			wyswietl = new JMenuItem ("Wyœwietl informacje");
-			wyswietl.addActionListener(autorListener);
-			autor.add(wyswietl);
-			menubar.add(autor);
-		this.setJMenuBar(menubar);
+			menuBar = new JMenuBar();
+			author = new JMenu ("Autor");
+			show = new JMenuItem ("Wyœwietl informacje");
+			show.addActionListener(authorListener);
+			author.add(show);
+			menuBar.add(author);
+			
+		this.setJMenuBar(menuBar);
 		this.pack();
 	}
 	
@@ -99,20 +100,23 @@ public class GUI extends JFrame {
 		  }
 
 		  public ImagePanel(Image img) {
+			  
 		    this.img = img;
 		    Dimension size = new Dimension(755, 560);
-		    setPreferredSize(size);
-		    setMinimumSize(size);
-		    setMaximumSize(size);
-		    setSize(size);
-		    setLayout(null);
+		    
+		    	setPreferredSize(size);
+		    	setMinimumSize(size);
+		    	setMaximumSize(size);
+		    	setSize(size);
+		    	setLayout(null);
 		  }
 
-		  public void paintComponent(Graphics g) {
-		    g.drawImage(img, 0, 0, null);
-		  }
+		  	public void paintComponent(Graphics g) {
+		  		g.drawImage(img, 0, 0, null);
+		  	}
 	}
-	ActionListener autorListener = new ActionListener() {
+	
+	ActionListener authorListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			JOptionPane.showMessageDialog(null, "Iga Michalska, Jan £oziñski");
