@@ -9,13 +9,12 @@ public class GameEngine implements Runnable {
 	private static Thread thread;
 	static boolean running;
 	private final double MAXUPDATE = 1.0/60.0;
-	public static boolean zakoncz=false;
 	private Player player;
 	
 	private float fuel;
 	private float maxFuel = 400;
 	private double distMax;
-	public static float paliwo;
+	public static float fuelRate;
 	
 	private ControlListener control;
 	
@@ -38,7 +37,7 @@ public class GameEngine implements Runnable {
 	public void start() {
 		
 		frame = new GameFrame();
-		switch(StartWindow.pT) {
+		switch(StartWindow.lvl) {
 		case 0:
 			maxFuel = 500;
 			distMax = 1.2;
@@ -57,15 +56,16 @@ public class GameEngine implements Runnable {
 			break;
 		}
 		System.out.println(maxFuel);
-		planets.add(new Planet(0,100,6.28*Math.random(),0,100,Color.orange)); //slonce
-		planets.add(new Planet(250,10,6.28*Math.random(),0.009,10,Color.red)); //merkury
-		planets.add(new Planet(400, 35,6.28*Math.random(),0.0075, 80,Color.lightGray)); //wenus
+		
+		planets.add(new Planet(0,100,6.28*Math.random(),0, 100, Color.orange)); //slonce
+		planets.add(new Planet(250,10,6.28*Math.random(),0.009, 10, Color.red)); //merkury
+		planets.add(new Planet(400, 35,6.28*Math.random(),0.0075, 80, Color.lightGray)); //wenus
 		planets.add(new Planet(600, 40, 6.28*Math.random(),0.0045, 100, Color.blue)); //ziemia
 		planets.add(new Planet(850, 20, 6.28*Math.random(),0.0045, 20, Color.red)); //mars
-		planets.add(new Planet(1600, 300, 6.28*Math.random(),0.003, 900 ,Color.white)); //jowisz
-		planets.add(new Planet(2200, 200, 6.28*Math.random(),0.002, 300,Color.gray)); //saturn
-		planets.add(new Planet(2900, 100, 6.28*Math.random(),0.002, 150,Color.cyan)); //uran
-		planets.add(new Planet(3200, 90, 6.28*Math.random(),0.002, 200,Color.blue)); //neptun
+		planets.add(new Planet(1600, 300, 6.28*Math.random(),0.003, 900, Color.white)); //jowisz
+		planets.add(new Planet(2200, 200, 6.28*Math.random(),0.002, 300, Color.gray)); //saturn
+		planets.add(new Planet(2900, 100, 6.28*Math.random(),0.002, 150, Color.cyan)); //uran
+		planets.add(new Planet(3200, 90, 6.28*Math.random(),0.002, 200, Color.blue)); //neptun
 		
 		player = new Player(200,200);
 		
@@ -87,21 +87,16 @@ public class GameEngine implements Runnable {
 		double accX = 0;
 		double accY = 0;
 		
-//		double frameTime = 0;
-//		double frames = 0;
-//		double fps = 0;
-//		
 		
 		while(running) {
 			
-			paliwo = ( ((int)(100*fuel)) / ((int)maxFuel));
+			fuelRate = ( ((int)(100*fuel)) / ((int)maxFuel));
 			render = false;
 			firstTime = System.nanoTime() / 1000000000.0;
 			passedTime = firstTime - lastTime;
 			lastTime = firstTime;
 			
 			unprocessedTime += passedTime;
-//			frameTime += passedTime;
 			
 			
 			while(unprocessedTime >= MAXUPDATE) {
@@ -178,16 +173,6 @@ public class GameEngine implements Runnable {
 				
 				
 				render = true;
-//				frames ++;
-//				if(frameTime >= 1.0) {
-//					frameTime = 0;
-//					fps = frames;
-//					frames = 0;
-//					System.out.println("accx: " + accX);
-//					System.out.println("accY: " + accY);
-//					System.out.println("angle  : " + Math.cos(player.getAng()));
-//					System.out.println("fuel: " + fuel);
-//				}
 			}
 		
 		
@@ -203,17 +188,7 @@ public class GameEngine implements Runnable {
 			}
 		}
 		
-		dispose();
 	}
-
-	private void dispose() {
-		// TODO Dispose actions
-		
-	}
-
-//	public float getFuel() {
-//		return fuel;
-//	}
 
 	public void setRunning(boolean running) {
 		GameEngine.running = running;

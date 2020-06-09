@@ -15,77 +15,75 @@ import javax.swing.JPanel;
 
 public class StartWindow extends JFrame {
 
-	CPanel pt, plS, plD, kol;
-	JPanel glowny;
+	CPanel level, startPlanet, endPlanet, color;
+	JPanel central;
 	JButton start;
 	GameEngine engine;
 	GameFrame frame;
 	static String cmd;
-	static int pT = 0;
+	static int lvl = 0;
 	
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		glowny = new JPanel();
-		glowny.setPreferredSize(new Dimension(400,300));
-		glowny.setLayout(new BoxLayout(glowny, BoxLayout.PAGE_AXIS));
+		central = new JPanel();
+		central.setPreferredSize(new Dimension(400,300));
+		central.setLayout(new BoxLayout(central, BoxLayout.PAGE_AXIS));
 		
-		String[] pozT = {"Latwy", "Sredni", "Trudny", "Kosmicznie trudny"};
-		String[] planety = { "Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran"};
-		String[] kolory = {"Czerwony", "Niebieski", "Szary"};
+		String[] levels = {"Latwy", "Sredni", "Trudny", "Kosmicznie trudny"};
+		String[] planets = { "Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran"};
+		String[] colors = {"Czerwony", "Niebieski", "Szary"};
 		
-		JComboBox<String> wybPT = new JComboBox<String>(pozT);
-		wybPT.setSelectedIndex(0);
-		JComboBox<String> wybPlanetyS = new JComboBox<String>(planety);
-		JComboBox<String> wybPlanetyD = new JComboBox<String>(planety);
-		JComboBox<String> wybKolor = new JComboBox<String>(kolory);
-		wybKolor.setSelectedIndex(0);
+		JComboBox<String> lvlBox = new JComboBox<String>(levels);
+		lvlBox.setSelectedIndex(0);
+		JComboBox<String> startPlanetBox = new JComboBox<String>(planets);
+		JComboBox<String> endPlanetBox = new JComboBox<String>(planets);
+		JComboBox<String> colorBox = new JComboBox<String>(colors);
+		colorBox.setSelectedIndex(0);
 		
-		pt = new CPanel();
-		pt.add(new JLabel("Poziom trudnosci: "));
-		pt.add(Box.createHorizontalGlue());
-		pt.add(wybPT);
+		level = new CPanel();
+		level.add(new JLabel("Poziom trudnosci: "));
+		level.add(Box.createHorizontalGlue());
+		level.add(lvlBox);
 		
-		plS = new CPanel();
-		plS.add(new JLabel("Planeta startowa:"));
-		plS.add(Box.createHorizontalGlue());
-		plS.add(wybPlanetyS);
+		startPlanet = new CPanel();
+		startPlanet.add(new JLabel("Planeta startowa:"));
+		startPlanet.add(Box.createHorizontalGlue());
+		startPlanet.add(startPlanetBox);
 		
-		plD = new CPanel();
-		plD.add(new JLabel("Planeta docelowa:"));
-		plD.add(Box.createHorizontalGlue());
-		plD.add(wybPlanetyD);
+		endPlanet = new CPanel();
+		endPlanet.add(new JLabel("Planeta docelowa:"));
+		endPlanet.add(Box.createHorizontalGlue());
+		endPlanet.add(endPlanetBox);
 		
-		kol = new CPanel();
-		kol.add(new JLabel("Kolor statku: "));
-		kol.add(Box.createHorizontalGlue());
+		color = new CPanel();
+		color.add(new JLabel("Kolor statku: "));
+		color.add(Box.createHorizontalGlue());
 		
 		
-		kol.add(wybKolor);
+		color.add(colorBox);
 		
 		start = new JButton("ROZPOCZNIJ GRE");
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				pT = wybPT.getSelectedIndex();
-				cmd = (String) wybKolor.getSelectedItem();
-				System.out.println(pT);
-				System.out.println(cmd);
+				lvl = lvlBox.getSelectedIndex();
+				cmd = (String) colorBox.getSelectedItem();
+				
 				engine = new GameEngine();
 				engine.start();
-				
 				
 				dispose();
 				
 			}
 		});
 		
-		glowny.add(pt); glowny.add(plS); glowny.add(plD); glowny.add(kol); 
-		glowny.add(Box.createRigidArea(new Dimension(0,20)));
-		glowny.add(start);
-		this.add(glowny);
+		central.add(level); central.add(startPlanet); central.add(endPlanet); central.add(color); 
+		central.add(Box.createRigidArea(new Dimension(0,20)));
+		central.add(start);
+		this.add(central);
 		this.pack();
 	}
 	
