@@ -142,7 +142,7 @@ public class GameEngine implements Runnable {
 				{	
 					Planet p = planets.get(i);
 					
-					if(player.calcDist(p)<= p.getSelfR()) 
+					if(player.calcDist(p)<= (p.getSelfR() + 15)) 
 					{	
 						double dist = distance.get(i) - player.calcDist(p);
 						System.out.println(dist);
