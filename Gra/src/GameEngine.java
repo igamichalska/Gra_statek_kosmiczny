@@ -8,19 +8,21 @@ public class GameEngine implements Runnable {
 	
 	private static Thread thread;
 	static boolean running;
-	private final double MAXUPDATE = 1.0/30.0;
+	private final double MAXUPDATE = 1.0/60.0;
 	public static boolean zakoncz=false;
 	private Player player;
+	
 	private float fuel;
-	private float maxfuel = 400;
+	private float maxFuel = 400;
+	private double distMax;
 	public static float paliwo;
 	
 	private ControlListener control;
 	
-	private final double GRAV = 5;
+	private final double GRAV = 2;
 	private final double ACCF = 0.08;
 	private final double ACCB = 0.04;
-	private final double ROT = 0.1;
+	private final double ROT = 2;
 	
 	private int width =320, height = 240;
 	private float scale = 3f;
@@ -36,21 +38,39 @@ public class GameEngine implements Runnable {
 	public void start() {
 		
 		frame = new GameFrame();
-		//frame.requestFocus();
-		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
-		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
-		planets.add(new Planet(200, 30, 6.28*Math.random(), 0.008, 1, Color.green));
-		player = new Player(100,100);
+		switch(StartWindow.pT) {
+		case 0:
+			maxFuel = 500;
+			distMax = 1.2;
+			break;
+		case 1:
+			maxFuel = 400;
+			distMax = 1;
+			break;
+		case 2:
+			maxFuel = 300;
+			distMax = 0.8;
+			break;
+		case 3:
+			maxFuel = 250;
+			distMax = 0.7;
+			break;
+		}
+		System.out.println(maxFuel);
+		planets.add(new Planet(0,40,6.28*Math.random(),0,80,Color.orange)); //slonce
+		planets.add(new Planet(150,20,6.28*Math.random(),0.004,80,Color.red)); //merkury
+		planets.add(new Planet(300,20,6.28*Math.random(),0.004,80,Color.lightGray)); //wenus
+		player = new Player(200,200);
+		
 		thread = new Thread(this);
 		control = new ControlListener(this);
 		thread.start();
-		}
+	}
 	
 	public void run() {
 
 		running = true;
-		fuel = maxfuel;
+		fuel = maxFuel;
 		boolean render = false;
 		
 		double firstTime = 0;
@@ -60,21 +80,21 @@ public class GameEngine implements Runnable {
 		double accX = 0;
 		double accY = 0;
 		
-		double frameTime = 0;
-		double frames = 0;
-		double fps = 0;
-		
+//		double frameTime = 0;
+//		double frames = 0;
+//		double fps = 0;
+//		
 		
 		while(running) {
 			
-			paliwo = (getFuel()/maxfuel) *100;
+			paliwo = ( ((int)(100*fuel)) / ((int)maxFuel));
 			render = false;
 			firstTime = System.nanoTime() / 1000000000.0;
 			passedTime = firstTime - lastTime;
 			lastTime = firstTime;
 			
 			unprocessedTime += passedTime;
-			frameTime += passedTime;
+//			frameTime += passedTime;
 			
 			
 			while(unprocessedTime >= MAXUPDATE) {
@@ -97,14 +117,14 @@ public class GameEngine implements Runnable {
 				if(control.isRightKey()) {
 					player.setAng(player.getAng() + ROT);
 				}
-				if(control.isUpKey() && fuel>=0) {
-					accX += ACCF* Math.cos(player.getAng());
-					accY += ACCF*Math.sin(player.getAng());
+				if(control.isUpKey() && fuel>=1) {
+					accX += ACCF* Math.cos(Math.toRadians(player.getAng()));
+					accY += ACCF*Math.sin(Math.toRadians(player.getAng()));
 					fuel--;
 				}
 				if(control.isDownKey()&& fuel>=0) {
-					accX -= ACCB* Math.cos(player.getAng());
-					accY -= ACCB*Math.sin(player.getAng());
+					accX -= ACCB* Math.cos(Math.toRadians(player.getAng()));
+					accY -= ACCB*Math.sin(Math.toRadians(player.getAng()));
 					fuel--;
 				}
 				
@@ -124,8 +144,10 @@ public class GameEngine implements Runnable {
 					
 					if(player.calcDist(p)<= p.getSelfR()) 
 					{	
-						if((player.calcDist(p) - distance.get(i)) >=0.01) {
-							
+						double dist = distance.get(i) - player.calcDist(p);
+						System.out.println(dist);
+						
+						if(dist >=distMax) {
 							System.out.println("ZDERZENIEE");
 							frame.dispose();
 							
@@ -134,7 +156,7 @@ public class GameEngine implements Runnable {
 							gui.setVisible(true);
 							
 						} else {
-							System.out.println("WYL¥DOWAL");
+							System.out.println("WYLï¿½DOWAL");
 							frame.dispose();
 							
 							GUI gui = new GUI("wygrana.png");
@@ -145,22 +167,20 @@ public class GameEngine implements Runnable {
 						running = false;
 						
 					}
-							
-						
 				}
 				
 				
 				render = true;
-				frames ++;
-				if(frameTime >= 1.0) {
-					frameTime = 0;
-					fps = frames;
-					frames = 0;
-					System.out.println("accx: " + accX);
-					System.out.println("accY: " + accY);
-					System.out.println("angle  : " + Math.cos(player.getAng()));
-					System.out.println("fuel: " + fuel);
-				}
+//				frames ++;
+//				if(frameTime >= 1.0) {
+//					frameTime = 0;
+//					fps = frames;
+//					frames = 0;
+//					System.out.println("accx: " + accX);
+//					System.out.println("accY: " + accY);
+//					System.out.println("angle  : " + Math.cos(player.getAng()));
+//					System.out.println("fuel: " + fuel);
+//				}
 			}
 		
 		
@@ -184,9 +204,9 @@ public class GameEngine implements Runnable {
 		
 	}
 
-	public float getFuel() {
-		return fuel;
-	}
+//	public float getFuel() {
+//		return fuel;
+//	}
 
 	public void setRunning(boolean running) {
 		GameEngine.running = running;

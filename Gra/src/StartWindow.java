@@ -20,7 +20,8 @@ public class StartWindow extends JFrame {
 	JButton start;
 	GameEngine engine;
 	GameFrame frame;
-	static String cmd="Czerwony";
+	static String cmd;
+	static int pT = 0;
 	
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
@@ -35,9 +36,11 @@ public class StartWindow extends JFrame {
 		String[] kolory = {"Czerwony", "Niebieski", "Szary"};
 		
 		JComboBox<String> wybPT = new JComboBox<String>(pozT);
+		wybPT.setSelectedIndex(0);
 		JComboBox<String> wybPlanetyS = new JComboBox<String>(planety);
 		JComboBox<String> wybPlanetyD = new JComboBox<String>(planety);
 		JComboBox<String> wybKolor = new JComboBox<String>(kolory);
+		wybKolor.setSelectedIndex(0);
 		
 		pt = new CPanel();
 		pt.add(new JLabel("Poziom trudnosci: "));
@@ -55,17 +58,10 @@ public class StartWindow extends JFrame {
 		plD.add(wybPlanetyD);
 		
 		kol = new CPanel();
-			kol.add(new JLabel("Kolor statku: "));
-			kol.add(Box.createHorizontalGlue());
+		kol.add(new JLabel("Kolor statku: "));
+		kol.add(Box.createHorizontalGlue());
 		
-			wybKolor.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				cmd = (String) wybKolor.getSelectedItem();
-			}
-			
-		});
+		
 		kol.add(wybKolor);
 		
 		start = new JButton("ROZPOCZNIJ GRE");
@@ -73,6 +69,10 @@ public class StartWindow extends JFrame {
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				pT = wybPT.getSelectedIndex();
+				cmd = (String) wybKolor.getSelectedItem();
+				System.out.println(pT);
+				System.out.println(cmd);
 				engine = new GameEngine();
 				engine.start();
 				
