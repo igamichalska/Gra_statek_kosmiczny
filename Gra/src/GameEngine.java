@@ -36,7 +36,7 @@ public class GameEngine implements Runnable {
 	public void start() {
 		
 		frame = new GameFrame();
-		
+		//frame.requestFocus();
 		planets.add(new Planet(400, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
 		planets.add(new Planet(0, 50, 0, 0, 40, Color.green));
 		planets.add(new Planet(300, 20, 6.28*Math.random(), 0.004, 10, Color.blue));
@@ -127,9 +127,20 @@ public class GameEngine implements Runnable {
 						if((player.calcDist(p) - distance.get(i)) >=0.01) {
 							
 							System.out.println("ZDERZENIEE");
+							frame.dispose();
+							
+							GUI gui = new GUI("przegrana.png");
+							gui.setLocationRelativeTo(null);
+							gui.setVisible(true);
 							
 						} else {
 							System.out.println("WYL¥DOWAL");
+							frame.dispose();
+							
+							GUI gui = new GUI("wygrana.png");
+							gui.setLocationRelativeTo(null);
+							gui.setVisible(true);
+							
 						}
 						running = false;
 						
@@ -176,7 +187,7 @@ public class GameEngine implements Runnable {
 	}
 
 	public void setRunning(boolean running) {
-		this.running = running;
+		GameEngine.running = running;
 	}
 
 	

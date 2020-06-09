@@ -25,7 +25,7 @@ public class StartWindow extends JFrame {
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		
 		glowny = new JPanel();
 		glowny.setPreferredSize(new Dimension(400,300));
 		glowny.setLayout(new BoxLayout(glowny, BoxLayout.PAGE_AXIS));
@@ -78,6 +78,7 @@ public class StartWindow extends JFrame {
 				
 				
 				dispose();
+				
 			}
 		});
 		
