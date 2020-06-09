@@ -35,7 +35,8 @@ public class GUI extends JFrame {
 	JMenu autor;
 	JMenuItem wyswietl;
 	
-	public GUI() throws HeadlessException {
+	public GUI(String pic) throws HeadlessException {
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			this.setSize(950,850);
 				this.setTitle("Kosmiczne Podró¿e");
@@ -55,7 +56,9 @@ public class GUI extends JFrame {
 		    	@Override
 		    	public void actionPerformed(ActionEvent arg0) {
 		    		StartWindow okno = new StartWindow();
+		    		okno.setLocationRelativeTo(null);
 		    		okno.setVisible(true);
+		    		dispose();
 		    	}
 		    });
 			startbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -85,7 +88,7 @@ public class GUI extends JFrame {
 					lewy.add(slider);
 		this.add(lewy, BorderLayout.LINE_START);
 		
-		prawy = new ImagePanel(new ImageIcon("pic.png").getImage());
+		prawy = new ImagePanel(new ImageIcon(pic).getImage());
 				
 		this.add(prawy, BorderLayout.CENTER);
 		
@@ -139,7 +142,7 @@ public class GUI extends JFrame {
 	};
 
 	public static void main(String[] args) {
-		GUI frame = new GUI();
+		GUI frame = new GUI("pic.png");
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}

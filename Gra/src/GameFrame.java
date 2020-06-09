@@ -27,11 +27,10 @@ public class GameFrame implements WindowListener{
 	
 	public GameFrame(){
 		
-		
 		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
 		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 		if (StartWindow.cmd == "Czerwony") {
-			a =  "pic_red.png";
+				a =  "pic_red.png";
 			}
 		else if(StartWindow.cmd == "Niebieski") {
 				a =  "pic_blue.png";
@@ -53,7 +52,7 @@ public class GameFrame implements WindowListener{
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
-		
+
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -63,7 +62,7 @@ public class GameFrame implements WindowListener{
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.addWindowListener(this);
-		
+
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
 		g = (Graphics2D)bs.getDrawGraphics();
@@ -104,11 +103,12 @@ public class GameFrame implements WindowListener{
 		g.rotate(Math.toRadians(player.getAng()+90),player.getX(), player.getY());
 		
 		
-		//TUTAJ WKLEJ OBRAZEK STATKU
+		g.drawImage(img2, (int)player.getX() - img2.getWidth()/2, (int)player.getY() - img2.getHeight()/2, img2.getWidth(), img2.getHeight(), canvas);
 		
 		g.translate((int)player.getX(), (int)player.getY());
 		
 		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
+		
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
 		
 		bs.show();
@@ -123,17 +123,15 @@ public class GameFrame implements WindowListener{
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
-
-	
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		
-		//System.out.println("proba");
 		GameEngine.running = false;
+		StartWindow.cmd="Czerwony";
 	}
 
 	@Override
@@ -156,13 +154,17 @@ public class GameFrame implements WindowListener{
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void dispose() {
+		frame.dispose();
 		
 	}
 }
