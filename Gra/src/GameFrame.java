@@ -102,6 +102,10 @@ public class GameFrame implements WindowListener{
 			
 			
 		g.rotate(Math.toRadians(player.getAng()+90),player.getX(), player.getY());
+		
+		
+		//TUTAJ WKLEJ OBRAZEK STATKU
+		
 		g.translate((int)player.getX(), (int)player.getY());
 		
 		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
