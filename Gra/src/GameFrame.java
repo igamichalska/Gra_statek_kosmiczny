@@ -2,8 +2,9 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class GameFrame {
+public class GameFrame implements WindowListener{
 	
 	private JFrame frame;
 	private BufferedImage img, img2;
@@ -23,7 +24,9 @@ public class GameFrame {
 	String a;
 	URL sciezka;
 	
+	
 	public GameFrame(){
+		
 		
 		img = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
 		img2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
@@ -59,6 +62,7 @@ public class GameFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setResizable(false);
+		frame.addWindowListener(this);
 		
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
@@ -80,6 +84,7 @@ public class GameFrame {
 					pr.getX()-pr.getSelfR(),
 					pr.getY()-pr.getSelfR(),
 					2*pr.getSelfR(),2*pr.getSelfR());
+			
 		}
 		g.drawImage(img2, (int)player.getX(), (int)player.getY(), img2.getWidth(), img2.getHeight(), canvas);
 		g.setColor(Color.cyan);
@@ -93,6 +98,7 @@ public class GameFrame {
 				(int)player.getX() + (int)(40*Math.cos(player.getAng())),
 				(int)player.getY() + (int)(40*Math.sin(player.getAng())));
 		
+		g.drawString("paliwo: "+GameEngine.paliwo+ "%", -25, 380);
 		g.translate(-canvas.getWidth()/2, -canvas.getHeight()/2);
 		
 		bs.show();
@@ -103,5 +109,50 @@ public class GameFrame {
 	}
 	public Canvas getCanvas() {
 		return canvas;
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		
+		//System.out.println("proba");
+		GameEngine.running = false;
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
