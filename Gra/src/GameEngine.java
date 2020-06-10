@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 public class GameEngine implements Runnable {
 
 	private GameFrame frame;
@@ -40,22 +42,22 @@ public class GameEngine implements Runnable {
 		switch(StartWindow.lvl) {
 		case 0:
 			maxFuel = 500;
-			distMax = 1.2;
+			distMax = 1.4;
 			break;
 		case 1:
 			maxFuel = 400;
-			distMax = 1;
+			distMax = 1.1;
 			break;
 		case 2:
 			maxFuel = 300;
-			distMax = 0.8;
+			distMax = 0.9;
 			break;
 		case 3:
 			maxFuel = 250;
 			distMax = 0.7;
 			break;
 		}
-		System.out.println(maxFuel);
+		
 		
 		planets.add(new Planet(0,100,6.28*Math.random(),0, 100, Color.orange)); //slonce
 		planets.add(new Planet(250,10,6.28*Math.random(),0.009, 10, Color.red)); //merkury
@@ -67,7 +69,8 @@ public class GameEngine implements Runnable {
 		planets.add(new Planet(2900, 100, 6.28*Math.random(),0.002, 150, Color.cyan)); //uran
 		planets.add(new Planet(3200, 90, 6.28*Math.random(),0.002, 200, Color.blue)); //neptun
 		
-		player = new Player(200,200);
+		Planet startPlanet = planets.get(StartWindow.startPlanetInd + 1);
+		player = new Player(startPlanet.getX() + startPlanet.getSelfR() + 50, startPlanet.getY() + startPlanet.getSelfR() + 50);
 		
 		thread = new Thread(this);
 		control = new ControlListener(this);
@@ -144,26 +147,37 @@ public class GameEngine implements Runnable {
 				{	
 					Planet p = planets.get(i);
 					
-					if(player.calcDist(p)<= (p.getSelfR() + 15)) 
+					if(player.calcDist(p)<= (p.getSelfR() + 20)) 
 					{	
 						double dist = distance.get(i) - player.calcDist(p);
-						System.out.println(dist);
 						
-						if(dist >=distMax) {
-							System.out.println("ZDERZENIEE");
+						
+						if(dist >=distMax || i != (StartWindow.endPlanetInd+1)) {
 							frame.dispose();
 							
-							GUI gui = new GUI("przegrana.png");
-							gui.setLocationRelativeTo(null);
-							gui.setVisible(true);
+							SwingUtilities.invokeLater(
+									 new Runnable(){
+										public void run() {
+											GUI gui = new GUI("przegrana.png");
+											gui.setLocationRelativeTo(null);
+											gui.setVisible(true);
+										}
+									 }
+								);
 							
 						} else {
-							System.out.println("WYLADOWAL");
 							frame.dispose();
 							
-							GUI gui = new GUI("wygrana.png");
-							gui.setLocationRelativeTo(null);
-							gui.setVisible(true);
+							
+							SwingUtilities.invokeLater(
+									 new Runnable(){
+										public void run() {
+											GUI gui = new GUI("wygrana.png");
+											gui.setLocationRelativeTo(null);
+											gui.setVisible(true);
+										}
+									 }
+								);
 							
 						}
 						running = false;
@@ -182,7 +196,6 @@ public class GameEngine implements Runnable {
 				try {
 					Thread.sleep(1);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -15,13 +15,13 @@ import javax.swing.JPanel;
 
 public class StartWindow extends JFrame {
 
-	CPanel level, startPlanet, endPlanet, color;
+	CPanel level, startPlanetPanel, endPlanetPanel, colorPanel;
 	JPanel central;
 	JButton start;
 	GameEngine engine;
 	GameFrame frame;
 	static String cmd;
-	static int lvl = 0;
+	static int lvl = 0, startPlanetInd, endPlanetInd;
 	
 	public StartWindow() throws HeadlessException {
 		this.setTitle("Kosmiczne Podró¿e");
@@ -38,7 +38,9 @@ public class StartWindow extends JFrame {
 		JComboBox<String> lvlBox = new JComboBox<String>(levels);
 		lvlBox.setSelectedIndex(0);
 		JComboBox<String> startPlanetBox = new JComboBox<String>(planets);
+		startPlanetBox.setSelectedIndex(0);
 		JComboBox<String> endPlanetBox = new JComboBox<String>(planets);
+		endPlanetBox.setSelectedIndex(0);
 		JComboBox<String> colorBox = new JComboBox<String>(colors);
 		colorBox.setSelectedIndex(0);
 		
@@ -47,22 +49,22 @@ public class StartWindow extends JFrame {
 		level.add(Box.createHorizontalGlue());
 		level.add(lvlBox);
 		
-		startPlanet = new CPanel();
-		startPlanet.add(new JLabel("Planeta startowa:"));
-		startPlanet.add(Box.createHorizontalGlue());
-		startPlanet.add(startPlanetBox);
+		startPlanetPanel = new CPanel();
+		startPlanetPanel.add(new JLabel("Planeta startowa:"));
+		startPlanetPanel.add(Box.createHorizontalGlue());
+		startPlanetPanel.add(startPlanetBox);
 		
-		endPlanet = new CPanel();
-		endPlanet.add(new JLabel("Planeta docelowa:"));
-		endPlanet.add(Box.createHorizontalGlue());
-		endPlanet.add(endPlanetBox);
+		endPlanetPanel = new CPanel();
+		endPlanetPanel.add(new JLabel("Planeta docelowa:"));
+		endPlanetPanel.add(Box.createHorizontalGlue());
+		endPlanetPanel.add(endPlanetBox);
 		
-		color = new CPanel();
-		color.add(new JLabel("Kolor statku: "));
-		color.add(Box.createHorizontalGlue());
+		colorPanel = new CPanel();
+		colorPanel.add(new JLabel("Kolor statku: "));
+		colorPanel.add(Box.createHorizontalGlue());
 		
 		
-		color.add(colorBox);
+		colorPanel.add(colorBox);
 		
 		start = new JButton("ROZPOCZNIJ GRE");
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -71,7 +73,8 @@ public class StartWindow extends JFrame {
 
 				lvl = lvlBox.getSelectedIndex();
 				cmd = (String) colorBox.getSelectedItem();
-				
+				startPlanetInd = startPlanetBox.getSelectedIndex();
+				endPlanetInd = endPlanetBox.getSelectedIndex();
 				engine = new GameEngine();
 				engine.start();
 				
@@ -80,7 +83,7 @@ public class StartWindow extends JFrame {
 			}
 		});
 		
-		central.add(level); central.add(startPlanet); central.add(endPlanet); central.add(color); 
+		central.add(level); central.add(startPlanetPanel); central.add(endPlanetPanel); central.add(colorPanel); 
 		central.add(Box.createRigidArea(new Dimension(0,20)));
 		central.add(start);
 		this.add(central);
