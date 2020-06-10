@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -43,7 +44,7 @@ public class GUI extends JFrame {
 		        }
 		    }
 		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		    e.printStackTrace();
 		}
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -124,9 +125,17 @@ public class GUI extends JFrame {
 	};
 
 	public static void main(String[] args) {
-		GUI frame = new GUI("pic.png");
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		
+			SwingUtilities.invokeLater(
+				 new Runnable(){
+					public void run() {
+						GUI frame = new GUI("pic.png");
+						frame.setLocationRelativeTo(null);
+						frame.setVisible(true);
+					}
+				 }
+			);
+		
 	}
 
 
